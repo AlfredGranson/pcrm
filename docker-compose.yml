@@ -1,23 +1,26 @@
 services:
-  db:
-    image: postgres
-
-  web:
-    build: .
+  phoenix:
+    container_name: phoenix
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
     volumes:
-      - type: bind
-        source: .
-        target: /app
+      - ./:/app
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-pcrm_dev}
+      POSTGRES_HOSTNAME: ${POSTGRES_HOSTNAME:-db}
+      MIX_ENV: ${MIX_ENV:-dev}
     ports:
       - "4000:4000"
-    environment:
-      # Modify your config files (dev.exs and test.exs) so that the password and hostname can be overridden
-      # when environment variables are set:
-      # password: System.get_env("DB_PASS", "postgres"),
-      # hostname: System.get_env("DB_HOST", "localhost"),
-      - DB_PASS=password
-      - DB_HOST=db
     depends_on:
       - db
-    command:
-      - ./run.sh
+  db:
+    container_name: postgres
+    image: postgres:11-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-pcrm_dev}
+    restart: always

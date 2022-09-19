@@ -1,18 +1,14 @@
-FROM elixir:1.13.4
-
-# Install debian packages
-RUN apt-get update
-RUN apt-get install --yes build-essential inotify-tools postgresql-client
-
-# Install Phoenix packages
-RUN mix local.hex --force
-RUN mix local.rebar --force
-RUN mix archive.install --force https://github.com/phoenixframework/archives/raw/master/phx_new.ez
-
-# Install node
-RUN curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh
-RUN bash nodesource_setup.sh
-RUN apt-get install --yes nodejs npm
+FROM elixir:alpine
 
 WORKDIR /app
+
 EXPOSE 4000
+
+RUN apk update
+RUN apk --no-cache --update add nodejs nodejs-dev npm inotify-tools wget curl
+RUN mix local.hex --force
+RUN mix local.rebar --force
+RUN mix archive.install hex phx_new --force
+RUN npm install npm -g
+
+CMD mix deps.get && mix ecto.create && mix ecto.migrate && mix phx.server
