@@ -1,6 +1,13 @@
 /* This file is for your main application CSS */
 @import "./phoenix.css";
 
+@import "./open-sans.css";
+
+*{
+  font-family: OpenSans;
+  font-weight: bold;
+}
+
 /* Alerts and form errors used by phx.new */
 .alert {
   padding: 15px;
