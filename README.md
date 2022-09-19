@@ -10,7 +10,7 @@ pcrm is a Phoenix-based customer relationship management system.
 - [Docker compose](https://docs.docker.com/compose/install/)
 
 ### Instructions
-Copy and `cd` into the repository:
+Clone and `cd` into the repository:
 
 ```
 git@github.com:AlfredGranson/pcrm.git && cd pcrm
