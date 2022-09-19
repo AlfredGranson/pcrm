@@ -15,7 +15,7 @@ Copy and `cd` into the repository:
 ```
 git@github.com:AlfredGranson/pcrm.git && cd pcrm
 ```
-Run the container
+Run the container:
 
 ```
 docker compose up
@@ -23,7 +23,7 @@ docker compose up
 You can now visit the application by going to [http://localhost:4000/](http://localhost:4000/)
 
 ## Tests
-Run outisde of the container in the root of the application
+Run outisde of the container in the root of the application:
 
 ```
 docker compose run --rm -e MIX_ENV=test phoenix mix test
