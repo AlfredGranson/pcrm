@@ -18,6 +18,9 @@ defmodule PcrmWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    #Resource endpoints
+    resources "/customers", CustomerController
   end
 
   # Other scopes may use custom stacks.
