@@ -1,7 +1,7 @@
 # pcrm ![tests](https://github.com/AlfredGranson/pcrm/actions/workflows/elixir.yml/badge.svg)
 
 
-pcrm is a Phoenix-based customer relationship management system.
+pcrm is a devoper-conscious Phoenix-based customer relationship management system.
 
 ## Installation
 
