@@ -51,6 +51,7 @@ config :phoenix, :json_library, Jason
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
 
+# Configure supported locales
 config :pcrm, PcrmWeb.Gettext,
   default_locale: "en",
   locales: ~w(en es)
