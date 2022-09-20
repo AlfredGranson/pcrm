@@ -1,18 +1,18 @@
-<h1>Show Customer</h1>
+<h1><%= dgettext "customers", "Show Customer"%></h1>
 
 <ul>
 
   <li>
-    <strong>Given name:</strong>
+    <strong><%= dgettext "customers", "Given name"%>:</strong>
     <%= @customer.given_name %>
   </li>
 
   <li>
-    <strong>Family name:</strong>
+    <strong><%= dgettext "customers", "Family name"%>:</strong>
     <%= @customer.family_name %>
   </li>
 
 </ul>
 
-<span><%= link "Edit", to: Routes.customer_path(@conn, :edit, @customer) %></span> |
-<span><%= link "Back", to: Routes.customer_path(@conn, :index) %></span>
+<span><%= link (gettext "Edit"), to: Routes.customer_path(@conn, :edit, @customer) %></span> |
+<span><%= link (gettext "Back"), to: Routes.customer_path(@conn, :index) %></span>

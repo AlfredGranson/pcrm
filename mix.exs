@@ -20,7 +20,7 @@ defmodule Pcrm.MixProject do
   def application do
     [
       mod: {Pcrm.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools],
     ]
   end
 
