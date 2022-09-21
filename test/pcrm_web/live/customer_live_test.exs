@@ -4,9 +4,9 @@ defmodule PcrmWeb.CustomerLiveTest do
   import Phoenix.LiveViewTest
   import Pcrm.CustomersFixtures
 
-  @create_attrs %{family_name: "some family_name", given_name: "some given_name", honorific_prefix: "some honorific_prefix", honorific_srefix: "some honorific_srefix"}
-  @update_attrs %{family_name: "some updated family_name", given_name: "some updated given_name", honorific_prefix: "some updated honorific_prefix", honorific_srefix: "some updated honorific_srefix"}
-  @invalid_attrs %{family_name: nil, given_name: nil, honorific_prefix: nil, honorific_srefix: nil}
+  @create_attrs %{family_name: "some family_name", given_name: "some given_name", honorific_prefix: "some honorific_prefix", honorific_suffix: "some honorific_suffix"}
+  @update_attrs %{family_name: "some updated family_name", given_name: "some updated given_name", honorific_prefix: "some updated honorific_prefix", honorific_suffix: "some updated honorific_suffix"}
+  @invalid_attrs %{family_name: nil, given_name: nil, honorific_prefix: nil, honorific_suffix: nil}
 
   defp create_customer(_) do
     customer = customer_fixture()

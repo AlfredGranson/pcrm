@@ -8,7 +8,7 @@ defmodule Pcrm.CustomersTest do
 
     import Pcrm.CustomersFixtures
 
-    @invalid_attrs %{family_name: nil, given_name: nil, honorific_prefix: nil, honorific_srefix: nil}
+    @invalid_attrs %{family_name: nil, given_name: nil, honorific_prefix: nil, honorific_suffix: nil}
 
     test "list_customers/0 returns all customers" do
       customer = customer_fixture()
@@ -21,13 +21,13 @@ defmodule Pcrm.CustomersTest do
     end
 
     test "create_customer/1 with valid data creates a customer" do
-      valid_attrs = %{family_name: "some family_name", given_name: "some given_name", honorific_prefix: "some honorific_prefix", honorific_srefix: "some honorific_srefix"}
+      valid_attrs = %{family_name: "some family_name", given_name: "some given_name", honorific_prefix: "some honorific_prefix", honorific_suffix: "some honorific_suffix"}
 
       assert {:ok, %Customer{} = customer} = Customers.create_customer(valid_attrs)
       assert customer.family_name == "some family_name"
       assert customer.given_name == "some given_name"
       assert customer.honorific_prefix == "some honorific_prefix"
-      assert customer.honorific_srefix == "some honorific_srefix"
+      assert customer.honorific_suffix == "some honorific_suffix"
     end
 
     test "create_customer/1 with invalid data returns error changeset" do
@@ -36,13 +36,13 @@ defmodule Pcrm.CustomersTest do
 
     test "update_customer/2 with valid data updates the customer" do
       customer = customer_fixture()
-      update_attrs = %{family_name: "some updated family_name", given_name: "some updated given_name", honorific_prefix: "some updated honorific_prefix", honorific_srefix: "some updated honorific_srefix"}
+      update_attrs = %{family_name: "some updated family_name", given_name: "some updated given_name", honorific_prefix: "some updated honorific_prefix", honorific_suffix: "some updated honorific_suffix"}
 
       assert {:ok, %Customer{} = customer} = Customers.update_customer(customer, update_attrs)
       assert customer.family_name == "some updated family_name"
       assert customer.given_name == "some updated given_name"
       assert customer.honorific_prefix == "some updated honorific_prefix"
-      assert customer.honorific_srefix == "some updated honorific_srefix"
+      assert customer.honorific_suffix == "some updated honorific_suffix"
     end
 
     test "update_customer/2 with invalid data returns error changeset" do
