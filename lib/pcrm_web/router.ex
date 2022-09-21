@@ -18,10 +18,16 @@ defmodule PcrmWeb.Router do
   scope "/", PcrmWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live_session :default do
+      live "/", IndexLive, :index
 
-    #Resource endpoints
-    resources "/customers", CustomerController
+      live "/customers", CustomerLive.Index, :index
+      live "/customers/new", CustomerLive.Index, :new
+      live "/customers/:id/edit", CustomerLive.Index, :edit
+
+      live "/customers/:id", CustomerLive.Show, :show
+      live "/customers/:id/show/edit", CustomerLive.Show, :edit
+    end
   end
 
   # Other scopes may use custom stacks.

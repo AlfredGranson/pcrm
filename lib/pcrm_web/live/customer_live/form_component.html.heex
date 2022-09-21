@@ -1,0 +1,33 @@
+<div>
+  <h2><%= customer_form_title = @title
+    Gettext.gettext(PcrmWeb.Gettext, customer_form_title) %></h2>
+
+  <.form
+    let={f}
+    for={@changeset}
+    id="customer-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save">
+  
+    <%= label f, :honorific_prefix , (dgettext "customers", "Honorific Prefix") %>
+    <%= text_input f, :honorific_prefix %>
+    <%= error_tag f, :honorific_prefix %>
+  
+    <%= label f, :given_name, (dgettext "customers", "Given name") %>
+    <%= text_input f, :given_name %>
+    <%= error_tag f, :given_name %>
+  
+    <%= label f, :family_name, (dgettext "customers", "Family name") %>
+    <%= text_input f, :family_name %>
+    <%= error_tag f, :family_name %>
+  
+    <%= label f, :honorific_suffix, (dgettext "customers", "Honorific Suffix") %>
+    <%= text_input f, :honorific_suffix %>
+    <%= error_tag f, :honorific_suffix %>
+  
+    <div>
+      <%= submit (gettext "Save"), phx_disable_with: (gettext "Saving...") %>
+    </div>
+  </.form>
+</div>

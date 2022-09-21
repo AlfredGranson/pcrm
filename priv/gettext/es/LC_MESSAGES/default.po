@@ -11,24 +11,22 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/pcrm_web/templates/page/index.html.heex:2
+#: lib/pcrm_web/live/index_live.html.heex:2
 #, elixir-autogen, elixir-format
 msgid "Welcome to %{name}!"
 msgstr "¡Bienvenido a %{name}!"
 
-#: lib/pcrm_web/templates/page/index.html.heex:3
+#: lib/pcrm_web/live/index_live.html.heex:3
 #, elixir-autogen, elixir-format
 msgid "A devoper-conscious %{link}-based customer relationship management system."
 msgstr "Un sistema de gestión de relaciones con el cliente basado en %{link} y consciente de los programador."
 
-#: lib/pcrm_web/templates/customer/index.html.heex:21
+#: lib/pcrm_web/live/customer_live/index.html.heex:38
 #, elixir-autogen, elixir-format
 msgid "Are you sure?"
 msgstr "¿Estas seguro?"
 
-#: lib/pcrm_web/templates/customer/edit.html.heex:5
-#: lib/pcrm_web/templates/customer/new.html.heex:5
-#: lib/pcrm_web/templates/customer/show.html.heex:18
+#: lib/pcrm_web/live/customer_live/show.html.heex:41
 #, elixir-autogen, elixir-format
 msgid "Back"
 msgstr "Regresa"
@@ -38,13 +36,8 @@ msgstr "Regresa"
 msgid "Customers"
 msgstr "Clientes"
 
-#: lib/pcrm_web/templates/customer/index.html.heex:21
-#, elixir-autogen, elixir-format
-msgid "Delete"
-msgstr "Borrar"
-
-#: lib/pcrm_web/templates/customer/index.html.heex:20
-#: lib/pcrm_web/templates/customer/show.html.heex:17
+#: lib/pcrm_web/live/customer_live/index.html.heex:37
+#: lib/pcrm_web/live/customer_live/show.html.heex:40
 #, elixir-autogen, elixir-format
 msgid "Edit"
 msgstr "Editar"
@@ -54,12 +47,12 @@ msgstr "Editar"
 msgid "LiveDashboard"
 msgstr ""
 
-#: lib/pcrm_web/templates/customer/form.html.heex:17
+#: lib/pcrm_web/live/customer_live/form_component.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "Save"
 msgstr "Guardar"
 
-#: lib/pcrm_web/templates/customer/index.html.heex:19
+#: lib/pcrm_web/live/customer_live/index.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "Show"
 msgstr "Mostrar"
@@ -68,3 +61,13 @@ msgstr "Mostrar"
 #, elixir-autogen, elixir-format
 msgid "Language"
 msgstr "Idioma"
+
+#: lib/pcrm_web/live/customer_live/form_component.html.heex:30
+#, elixir-autogen, elixir-format
+msgid "Saving..."
+msgstr "Guardando.."
+
+#: lib/pcrm_web/live/customer_live/index.html.heex:38
+#, elixir-autogen, elixir-format
+msgid "Delete"
+msgstr "Borrar"

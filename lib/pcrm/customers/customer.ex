@@ -5,6 +5,8 @@ defmodule Pcrm.Customers.Customer do
   schema "customers" do
     field :family_name, :string
     field :given_name, :string
+    field :honorific_prefix, :string
+    field :honorific_suffix, :string
 
     timestamps()
   end
@@ -12,7 +14,7 @@ defmodule Pcrm.Customers.Customer do
   @doc false
   def changeset(customer, attrs) do
     customer
-    |> cast(attrs, [:given_name, :family_name])
-    |> validate_required([:given_name, :family_name])
+    |> cast(attrs, [:honorific_prefix, :given_name, :family_name, :honorific_suffix])
+    |> validate_required([:honorific_prefix, :given_name, :family_name, :honorific_suffix])
   end
 end

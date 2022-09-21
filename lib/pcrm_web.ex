@@ -47,6 +47,7 @@ defmodule PcrmWeb do
       use Phoenix.LiveView,
         layout: {PcrmWeb.LayoutView, "live.html"}
 
+      on_mount PcrmWeb.LiveLocale
       unquote(view_helpers())
     end
   end
@@ -91,6 +92,7 @@ defmodule PcrmWeb do
 
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
       import Phoenix.LiveView.Helpers
+      import PcrmWeb.LiveHelpers
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View

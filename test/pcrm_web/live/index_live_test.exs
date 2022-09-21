@@ -1,4 +1,4 @@
-defmodule PcrmWeb.PageControllerTest do
+defmodule PcrmWeb.IndexLiveTest do
   use PcrmWeb.ConnCase
 
   test "GET /", %{conn: conn} do

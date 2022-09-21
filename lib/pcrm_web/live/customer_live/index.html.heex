@@ -1,0 +1,45 @@
+<h1><%= dgettext "customers", "Listing Customers"%></h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.customer_index_path(@socket, :index)}>
+    <.live_component
+      module={PcrmWeb.CustomerLive.FormComponent}
+      id={@customer.id || :new}
+      title={@page_title}
+      action={@live_action}
+      customer={@customer}
+      return_to={Routes.customer_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= dgettext "customers", "Honorific Prefix"%></th>
+      <th><%= dgettext "customers", "Given name"%></th>
+      <th><%= dgettext "customers", "Family name"%></th>
+      <th><%= dgettext "customers", "Honorific Suffix"%></th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="customers">
+    <%= for customer <- @customers do %>
+      <tr id={"customer-#{customer.id}"}>
+        <td><%= customer.honorific_prefix %></td>
+        <td><%= customer.given_name %></td>
+        <td><%= customer.family_name %></td>
+        <td><%= customer.honorific_suffix %></td>
+
+        <td>
+          <span><%= live_redirect (gettext "Show"), to: Routes.customer_show_path(@socket, :show, customer) %></span>
+          <span><%= live_patch (gettext "Edit"), to: Routes.customer_index_path(@socket, :edit, customer) %></span>
+          <span><%= link (gettext "Delete"), to: "#", phx_click: "delete", phx_value_id: customer.id, data: [confirm: (gettext "Are you sure?")] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch (dgettext "customers", "New Customer"), to: Routes.customer_index_path(@socket, :new) %></span>

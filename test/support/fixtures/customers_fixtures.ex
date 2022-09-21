@@ -12,7 +12,9 @@ defmodule Pcrm.CustomersFixtures do
       attrs
       |> Enum.into(%{
         family_name: "some family_name",
-        given_name: "some given_name"
+        given_name: "some given_name",
+        honorific_prefix: "some honorific_prefix",
+        honorific_suffix: "some honorific_suffix"
       })
       |> Pcrm.Customers.create_customer()
 

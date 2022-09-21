@@ -14,23 +14,21 @@
       <section class="container">
         <nav>
           <ul>
-            <li><%= link (gettext "Customers"), to: Routes.customer_path(@conn, :index) %></li>
+            <li><%= live_redirect (gettext "Customers"), to: Routes.customer_index_path(@conn, :index) %></li>
             <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
               <li><%= link (gettext "LiveDashboard"), to: Routes.live_dashboard_path(@conn, :home) %></li>
             <% end %>
 
             <%= gettext "Language" %>
-            <select name="locale" value={Gettext.get_locale(PcrmWeb.Gettext)} onchange="location = this.value;">
               <%= for locale <- Gettext.known_locales(PcrmWeb.Gettext) do %>
-                <option selected={Gettext.get_locale(PcrmWeb.Gettext) == locale} value={"?locale=#{locale}"}><%= locale%></option>
+                <a href={"?locale=#{locale}"}><%= locale%></a>
               <% end %>
-            </select> 
-
           </ul>
         </nav>
-        <a href="/" class="phx-logo">
+        <%= live_redirect to: Routes.index_path(@conn, :index) do %>
           <img src={Routes.static_path(@conn, "/images/phoenix.png")} alt="Phoenix Framework Logo"/>
-        </a>
+        <% end %>
+
       </section>
     </header>
     <%= @inner_content %>

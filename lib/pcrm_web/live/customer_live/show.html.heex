@@ -1,0 +1,41 @@
+<h1><%= dgettext "customers", "Show Customer"%></h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.customer_show_path(@socket, :show, @customer)}>
+    <.live_component
+      module={PcrmWeb.CustomerLive.FormComponent}
+      id={@customer.id}
+      title={@page_title}
+      action={@live_action}
+      customer={@customer}
+      return_to={Routes.customer_show_path(@socket, :show, @customer)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong><%= dgettext "customers", "Honorific Prefix"%>:</strong>
+    <%= @customer.honorific_prefix %>
+  </li>
+
+  <li>
+    <strong><%= dgettext "customers", "Given name"%>:</strong>
+    <%= @customer.given_name %>
+  </li>
+
+  <li>
+    <strong><%= dgettext "customers", "Family name"%>:</strong>
+    <%= @customer.family_name %>
+  </li>
+
+  <li>
+    <strong><%= dgettext "customers", "Honorific Suffix"%>:</strong>
+    <%= @customer.honorific_suffix %>
+  </li>
+
+</ul>
+
+<span><%= live_patch (gettext "Edit"), to: Routes.customer_show_path(@socket, :edit, @customer), class: "button" %></span> |
+<span><%= live_redirect (gettext "Back"), to: Routes.customer_index_path(@socket, :index) %></span>
