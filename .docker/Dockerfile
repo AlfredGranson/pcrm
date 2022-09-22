@@ -6,6 +6,7 @@ EXPOSE 4000
 
 RUN apk update
 RUN apk --no-cache --update add nodejs nodejs-dev npm inotify-tools wget curl
+RUN apk add build-base
 RUN mix local.hex --force
 RUN mix local.rebar --force
 RUN mix archive.install hex phx_new --force

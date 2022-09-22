@@ -31,6 +31,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Build base 
+      run: |
+        apk add build-base
     - name: Install Dependencies
       run: |
         mix local.rebar --force
