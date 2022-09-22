@@ -1,9 +1,9 @@
 # pcrm ![tests](https://github.com/AlfredGranson/pcrm/actions/workflows/elixir.yml/badge.svg)
 
-
 pcrm is a devoper-conscious Phoenix-based customer relationship management system.
 
 ## Installation & Setup
+While pcrm can be setup locally for development, it is recommended and instructions are currently only available for use with docker/docker compose.
 
 ### Prerequisites
 - [Docker](https://docs.docker.com/get-docker/)
@@ -32,4 +32,4 @@ docker compose run --rm -e MIX_ENV=test phoenix mix test
 Commands can be run directly in container/locally or outside of a container by running ```docker exec -it phoenix [command]```
 
 - Update `gettext` `.pot` and `.po` files after adding new translations:
- - ```mix gettext.extract --merge```
+  - ```mix gettext.extract --merge```

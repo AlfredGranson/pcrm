@@ -2,11 +2,15 @@ defmodule Pcrm.Repo.Migrations.CreateCustomers do
   use Ecto.Migration
 
   def change do
-    create table(:customers) do
-      add :honorific_prefix, :string
-      add :given_name, :string
-      add :family_name, :string
-      add :honorific_suffix, :string
+    execute "CREATE EXTENSION IF NOT EXISTS citext", "DROP EXTENSION IF EXISTS citext"
+
+    create table(:customers, primary_key: false) do
+      add :id, :binary_id, primary_key: true
+      
+      add :honorific_prefix, :citext
+      add :given_name, :citext
+      add :family_name, :citext, null: false
+      add :honorific_suffix, :citext
 
       timestamps()
     end
