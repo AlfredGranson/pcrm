@@ -24,6 +24,7 @@
                 <a href={"?locale=#{locale}"}><%= locale%></a>
               <% end %>
           </ul>
+          <%= render "_user_menu.html", assigns %>
         </nav>
         <%= live_redirect to: Routes.index_path(@conn, :index) do %>
           <img src={Routes.static_path(@conn, "/images/phoenix.png")} alt="Phoenix Framework Logo"/>
