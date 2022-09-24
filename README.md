@@ -28,8 +28,6 @@ Run outisde of the container in the root of the application:
 ```
 docker compose run --rm -e MIX_ENV=test phoenix mix test
 ```
-## Useful commands
-Commands can be run directly in container/locally or outside of a container by running ```docker exec -it phoenix [command]```
 
-- Update `gettext` `.pot` and `.po` files after adding new translations:
-  - ```mix gettext.extract --merge```
+## Documentation
+Documentation for pcrm is currently available in the [wiki](https://github.com/AlfredGranson/pcrm/wiki).

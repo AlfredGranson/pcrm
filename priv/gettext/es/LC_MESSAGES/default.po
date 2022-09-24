@@ -31,7 +31,7 @@ msgstr "¿Estas seguro?"
 msgid "Back"
 msgstr "Regresa"
 
-#: lib/pcrm_web/templates/layout/root.html.heex:17
+#: lib/pcrm_web/templates/layout/root.html.heex:18
 #, elixir-autogen, elixir-format
 msgid "Customers"
 msgstr "Clientes"
@@ -42,7 +42,7 @@ msgstr "Clientes"
 msgid "Edit"
 msgstr "Editar"
 
-#: lib/pcrm_web/templates/layout/root.html.heex:19
+#: lib/pcrm_web/templates/layout/root.html.heex:37
 #, elixir-autogen, elixir-format
 msgid "LiveDashboard"
 msgstr ""
@@ -57,7 +57,7 @@ msgstr "Guardar"
 msgid "Show"
 msgstr "Mostrar"
 
-#: lib/pcrm_web/templates/layout/root.html.heex:22
+#: lib/pcrm_web/templates/layout/root.html.heex:21
 #, elixir-autogen, elixir-format
 msgid "Language"
 msgstr "Idioma"
@@ -71,3 +71,67 @@ msgstr "Guardando.."
 #, elixir-autogen, elixir-format
 msgid "Delete"
 msgstr "Borrar"
+
+#: lib/pcrm_web/templates/user_registration/new.html.heex:25
+#: lib/pcrm_web/templates/user_session/new.html.heex:26
+#, elixir-autogen, elixir-format
+msgid "Forgot your password?"
+msgstr "¿Olvidaste tu clave?"
+
+#: lib/pcrm_web/templates/layout/_user_menu.html.heex:8
+#: lib/pcrm_web/templates/user_confirmation/edit.html.heex:11
+#: lib/pcrm_web/templates/user_confirmation/new.html.heex:14
+#: lib/pcrm_web/templates/user_registration/new.html.heex:24
+#: lib/pcrm_web/templates/user_reset_password/edit.html.heex:25
+#: lib/pcrm_web/templates/user_reset_password/new.html.heex:14
+#: lib/pcrm_web/templates/user_session/new.html.heex:1
+#: lib/pcrm_web/templates/user_session/new.html.heex:20
+#, elixir-autogen, elixir-format
+msgid "Log in"
+msgstr "Iniciar sesión"
+
+#: lib/pcrm_web/templates/layout/_user_menu.html.heex:5
+#, elixir-autogen, elixir-format
+msgid "Log out"
+msgstr "Cerrar sesión"
+
+#: lib/pcrm_web/templates/user_registration/new.html.heex:6
+#: lib/pcrm_web/templates/user_reset_password/edit.html.heex:6
+#: lib/pcrm_web/templates/user_settings/edit.html.heex:8
+#: lib/pcrm_web/templates/user_settings/edit.html.heex:32
+#, elixir-autogen, elixir-format
+msgid "Oops, something went wrong! Please check the errors below."
+msgstr "¡Huy! Algo salió mal! Por favor, compruebe los errores a continuación."
+
+#: lib/pcrm_web/templates/layout/_user_menu.html.heex:7
+#: lib/pcrm_web/templates/user_confirmation/edit.html.heex:10
+#: lib/pcrm_web/templates/user_confirmation/new.html.heex:13
+#: lib/pcrm_web/templates/user_registration/new.html.heex:1
+#: lib/pcrm_web/templates/user_registration/new.html.heex:19
+#: lib/pcrm_web/templates/user_reset_password/edit.html.heex:24
+#: lib/pcrm_web/templates/user_reset_password/new.html.heex:13
+#: lib/pcrm_web/templates/user_session/new.html.heex:25
+#, elixir-autogen, elixir-format
+msgid "Register"
+msgstr "Registro"
+
+#: lib/pcrm_web/templates/layout/_user_menu.html.heex:4
+#: lib/pcrm_web/templates/user_settings/edit.html.heex:1
+#, elixir-autogen, elixir-format
+msgid "Settings"
+msgstr "Configurador"
+
+#: lib/pcrm_web/controllers/user_session_controller.ex:20
+#, elixir-autogen, elixir-format
+msgid "Invalid email or password."
+msgstr "Email o clave no válidos."
+
+#: lib/pcrm_web/controllers/user_session_controller.ex:26
+#, elixir-autogen, elixir-format
+msgid "Logged out successfully."
+msgstr "Cierre de sesión con éxito."
+
+#: lib/pcrm_web/controllers/user_auth.ex:136
+#, elixir-autogen, elixir-format
+msgid "You must log in to access this page."
+msgstr "Usted debe ingresar para acceder a esta página."

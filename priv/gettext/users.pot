@@ -1,0 +1,93 @@
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new translations manually only if they're dynamic
+## translations that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here has no
+## effect: edit them in PO (.po) files instead.
+msgid ""
+msgstr ""
+
+#: lib/pcrm_web/templates/user_settings/edit.html.heex:23
+#, elixir-autogen, elixir-format
+msgid "Change email"
+msgstr ""
+
+#: lib/pcrm_web/templates/user_settings/edit.html.heex:27
+#: lib/pcrm_web/templates/user_settings/edit.html.heex:51
+#, elixir-autogen, elixir-format
+msgid "Change password"
+msgstr ""
+
+#: lib/pcrm_web/templates/user_confirmation/edit.html.heex:1
+#, elixir-autogen, elixir-format
+msgid "Confirm account"
+msgstr ""
+
+#: lib/pcrm_web/templates/user_confirmation/edit.html.heex:5
+#, elixir-autogen, elixir-format
+msgid "Confirm my account"
+msgstr ""
+
+#: lib/pcrm_web/templates/user_reset_password/edit.html.heex:14
+#: lib/pcrm_web/templates/user_settings/edit.html.heex:42
+#, elixir-autogen, elixir-format
+msgid "Confirm new password"
+msgstr ""
+
+#: lib/pcrm_web/templates/user_settings/edit.html.heex:18
+#: lib/pcrm_web/templates/user_settings/edit.html.heex:46
+#, elixir-autogen, elixir-format
+msgid "Current Password"
+msgstr ""
+
+#: lib/pcrm_web/templates/user_confirmation/new.html.heex:4
+#: lib/pcrm_web/templates/user_registration/new.html.heex:10
+#: lib/pcrm_web/templates/user_reset_password/new.html.heex:4
+#: lib/pcrm_web/templates/user_session/new.html.heex:10
+#: lib/pcrm_web/templates/user_settings/edit.html.heex:3
+#: lib/pcrm_web/templates/user_settings/edit.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "Email"
+msgstr ""
+
+#: lib/pcrm_web/templates/user_reset_password/new.html.heex:1
+#, elixir-autogen, elixir-format
+msgid "Forgot your password?"
+msgstr ""
+
+#: lib/pcrm_web/templates/user_session/new.html.heex:16
+#, elixir-autogen, elixir-format
+msgid "Keep me logged in for 60 days"
+msgstr ""
+
+#: lib/pcrm_web/templates/user_reset_password/edit.html.heex:10
+#: lib/pcrm_web/templates/user_settings/edit.html.heex:38
+#, elixir-autogen, elixir-format
+msgid "New password"
+msgstr ""
+
+#: lib/pcrm_web/templates/user_registration/new.html.heex:14
+#: lib/pcrm_web/templates/user_session/new.html.heex:13
+#, elixir-autogen, elixir-format
+msgid "Password"
+msgstr ""
+
+#: lib/pcrm_web/templates/user_confirmation/new.html.heex:1
+#: lib/pcrm_web/templates/user_confirmation/new.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "Resend confirmation instructions"
+msgstr ""
+
+#: lib/pcrm_web/templates/user_reset_password/edit.html.heex:1
+#: lib/pcrm_web/templates/user_reset_password/edit.html.heex:19
+#, elixir-autogen, elixir-format
+msgid "Reset password"
+msgstr ""
+
+#: lib/pcrm_web/templates/user_reset_password/new.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "Send instructions to reset password"
+msgstr ""

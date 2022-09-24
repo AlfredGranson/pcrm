@@ -1,15 +1,15 @@
-<h1>Forgot your password?</h1>
+<h1><%= dgettext "users", "Forgot your password?" %></h1>
 
 <.form let={f} for={:user} action={Routes.user_reset_password_path(@conn, :create)}>
-  <%= label f, :email %>
+  <%= label f, :email, (dgettext "users", "Email") %>
   <%= email_input f, :email, required: true %>
 
   <div>
-    <%= submit "Send instructions to reset password" %>
+    <%= submit (dgettext "users", "Send instructions to reset password") %>
   </div>
 </.form>
 
 <p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
+  <%= link (gettext "Register"), to: Routes.user_registration_path(@conn, :new) %>
+  <%= link (gettext "Log in"), to: Routes.user_session_path(@conn, :new) %>
 </p>

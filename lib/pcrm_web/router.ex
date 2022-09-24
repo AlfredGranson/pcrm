@@ -12,6 +12,11 @@ defmodule PcrmWeb.Router do
     plug :put_secure_browser_headers
     plug :fetch_current_user
     plug PcrmWeb.Plugs.Locale, "en"
+    plug :fetch_current_user
+  end
+
+  pipeline :auth do
+    plug :require_authenticated_user
   end
 
   pipeline :api do
@@ -20,15 +25,18 @@ defmodule PcrmWeb.Router do
 
   scope "/", PcrmWeb do
     pipe_through :browser
+    pipe_through :auth
 
     live "/", IndexLive, :index
-
+    
     live "/customers", CustomerLive.Index, :index
+
     live "/customers/new", CustomerLive.Index, :new
     live "/customers/:id/edit", CustomerLive.Index, :edit
 
     live "/customers/:id", CustomerLive.Show, :show
     live "/customers/:id/show/edit", CustomerLive.Show, :edit
+
   end
 
   # Other scopes may use custom stacks.

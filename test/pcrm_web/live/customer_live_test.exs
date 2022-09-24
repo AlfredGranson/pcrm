@@ -17,6 +17,9 @@ defmodule PcrmWeb.CustomerLiveTest do
     setup [:create_customer]
 
     test "lists all customers", %{conn: conn, customer: customer} do
+      # Authenticated routes require a logged in user
+      %{conn: conn} = register_and_log_in_user(%{conn: conn})
+
       {:ok, _index_live, html} = live(conn, Routes.customer_index_path(conn, :index))
 
       assert html =~ "Listing Customers"
@@ -24,6 +27,9 @@ defmodule PcrmWeb.CustomerLiveTest do
     end
 
     test "saves new customer", %{conn: conn} do
+      # Authenticated routes require a logged in user
+      %{conn: conn} = register_and_log_in_user(%{conn: conn})
+
       {:ok, index_live, _html} = live(conn, Routes.customer_index_path(conn, :index))
 
       assert index_live |> element("a", "New Customer") |> render_click() =~
@@ -46,6 +52,9 @@ defmodule PcrmWeb.CustomerLiveTest do
     end
 
     test "updates customer in listing", %{conn: conn, customer: customer} do
+      # Authenticated routes require a logged in user
+      %{conn: conn} = register_and_log_in_user(%{conn: conn})
+
       {:ok, index_live, _html} = live(conn, Routes.customer_index_path(conn, :index))
 
       assert index_live |> element("#customer-#{customer.id} a", "Edit") |> render_click() =~
@@ -68,6 +77,9 @@ defmodule PcrmWeb.CustomerLiveTest do
     end
 
     test "deletes customer in listing", %{conn: conn, customer: customer} do
+      # Authenticated routes require a logged in user
+      %{conn: conn} = register_and_log_in_user(%{conn: conn})
+
       {:ok, index_live, _html} = live(conn, Routes.customer_index_path(conn, :index))
 
       assert index_live |> element("#customer-#{customer.id} a", "Delete") |> render_click()
@@ -79,6 +91,9 @@ defmodule PcrmWeb.CustomerLiveTest do
     setup [:create_customer]
 
     test "displays customer", %{conn: conn, customer: customer} do
+      # Authenticated routes require a logged in user
+      %{conn: conn} = register_and_log_in_user(%{conn: conn})
+
       {:ok, _show_live, html} = live(conn, Routes.customer_show_path(conn, :show, customer))
 
       assert html =~ "Show Customer"
@@ -86,6 +101,9 @@ defmodule PcrmWeb.CustomerLiveTest do
     end
 
     test "updates customer within modal", %{conn: conn, customer: customer} do
+      # Authenticated routes require a logged in user
+      %{conn: conn} = register_and_log_in_user(%{conn: conn})
+      
       {:ok, show_live, _html} = live(conn, Routes.customer_show_path(conn, :show, customer))
 
       assert show_live |> element("a", "Edit") |> render_click() =~
