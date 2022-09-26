@@ -152,9 +152,9 @@ defmodule Pcrm.Users do
       |> User.email_changeset(%{email: email})
       |> User.confirm_changeset()
 
-    PaperTrail.Multi.new()
-    |> PaperTrail.Multi.update(:user, changeset)
-    |> PaperTrail.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, [context]))
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:user, changeset)
+    |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, [context]))
   end
 
   @doc """
@@ -170,7 +170,7 @@ defmodule Pcrm.Users do
       when is_function(update_email_url_fun, 1) do
     {encoded_token, user_token} = UserToken.build_email_token(user, "change:#{current_email}")
 
-    PaperTrail.insert!(user_token)
+    Repo.insert!(user_token)
     UserNotifier.deliver_update_email_instructions(user, update_email_url_fun.(encoded_token))
   end
 

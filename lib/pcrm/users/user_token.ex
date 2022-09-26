@@ -87,9 +87,6 @@ defmodule Pcrm.Users.UserToken do
     token = :crypto.strong_rand_bytes(@rand_size)
     hashed_token = :crypto.hash(@hash_algorithm, token)
 
-    IO.inspect(token)
-    IO.inspect(hashed_token)
-    
     {Base.url_encode64(token, padding: false),
      %UserToken{
        token: hashed_token,
