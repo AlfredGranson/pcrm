@@ -13,11 +13,13 @@ defmodule Pcrm.Users.UserToken do
   @change_email_validity_in_days 7
   @session_validity_in_days 60
 
+  @primary_key {:id, :binary_id, autogenerate: true}
+
   schema "users_tokens" do
     field :token, :binary
     field :context, :string
     field :sent_to, :string
-    belongs_to :user, Pcrm.Users.User
+    belongs_to :user, Pcrm.Users.User, type: :binary_id
 
     timestamps(updated_at: false)
   end
@@ -85,6 +87,9 @@ defmodule Pcrm.Users.UserToken do
     token = :crypto.strong_rand_bytes(@rand_size)
     hashed_token = :crypto.hash(@hash_algorithm, token)
 
+    IO.inspect(token)
+    IO.inspect(hashed_token)
+    
     {Base.url_encode64(token, padding: false),
      %UserToken{
        token: hashed_token,

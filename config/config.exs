@@ -55,3 +55,11 @@ import_config "#{config_env()}.exs"
 config :pcrm, PcrmWeb.Gettext,
   default_locale: "en",
   locales: ~w(en es)
+
+# Configure Paper Trail
+config :paper_trail,
+  repo: Pcrm.Repo,
+  item_type: :binary_id,
+  originator_type: :binary_id,
+  originator_relationship_options: [references: :binary_id],
+  originator: [name: :user, model: Pcrm.Users.User]

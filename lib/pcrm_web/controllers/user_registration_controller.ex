@@ -15,13 +15,13 @@ defmodule PcrmWeb.UserRegistrationController do
       {:ok, user} ->
         {:ok, _} =
           Users.deliver_user_confirmation_instructions(
-            user,
+            user.model,
             &Routes.user_confirmation_url(conn, :edit, &1)
           )
 
         conn
         |> put_flash(:info, "User created successfully.")
-        |> UserAuth.log_in_user(user)
+        |> UserAuth.log_in_user(user.model)
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
