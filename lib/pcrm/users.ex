@@ -77,7 +77,7 @@ defmodule Pcrm.Users do
   def register_user(attrs) do
     %User{}
     |> User.registration_changeset(attrs)
-    |> Repo.insert()
+    |> PaperTrail.insert()
   end
 
   @doc """

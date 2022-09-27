@@ -38,7 +38,7 @@ defmodule Pcrm.UsersTest do
   describe "get_user!/1" do
     test "raises if id is invalid" do
       assert_raise Ecto.NoResultsError, fn ->
-        Users.get_user!(-1)
+        Users.get_user!("00000000-0000-0000-0000-000000000000")
       end
     end
 
@@ -87,6 +87,7 @@ defmodule Pcrm.UsersTest do
     test "registers users with a hashed password" do
       email = unique_user_email()
       {:ok, user} = Users.register_user(valid_user_attributes(email: email))
+      user = user.model
       assert user.email == email
       assert is_binary(user.hashed_password)
       assert is_nil(user.confirmed_at)

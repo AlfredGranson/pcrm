@@ -20,7 +20,7 @@ defmodule Pcrm.UsersFixtures do
       |> valid_user_attributes()
       |> Pcrm.Users.register_user()
 
-    user
+    user.model
   end
 
   def extract_user_token(fun) do
