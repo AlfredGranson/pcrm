@@ -1,5 +1,0 @@
-<h1><%= dgettext "customers", "New Customer"%></h1>
-
-<%= render "form.html", Map.put(assigns, :action, Routes.customer_path(@conn, :create)) %>
-
-<span><%= link (gettext "Back"), to: Routes.customer_path(@conn, :index) %></span>
