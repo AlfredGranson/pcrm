@@ -14,31 +14,33 @@
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body class="sans-serif" style="-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;">
-    <header class="bb b--moon-gray">
+    <header class="bb b--moon-gray cf pa4">
       <section class="container">
-        <nav>
-          <ul>
-          <%= if @current_user do %>
-            <li><%= live_redirect (gettext "Customers"), to: Routes.customer_index_path(@conn, :index) %></li>
-          <%= end %>
-          </ul>
-          <%= render "_user_menu.html", assigns %>
-        </nav>
-        <%= live_redirect to: Routes.index_path(@conn, :index) do %>
+        <%= live_redirect to: Routes.index_path(@conn, :index), class: "fl" do %>
         pcrm
         <% end %>
+        <nav class="fr">
+          <%= render "_user_menu.html", assigns %>
+          <ul class="list">
+          <%= if @current_user do %>
+            <li class="fl"><%= live_redirect (gettext "Customers"), to: Routes.customer_index_path(@conn, :index) %></li>
+          <%= end %>
+          </ul>
+        </nav>
       </section>
     </header>
     <%= @inner_content %>
-    <div class="bt b--moon-gray">
-      <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-        <%= link (gettext "LiveDashboard"), to: Routes.live_dashboard_path(@conn, :home) %>
-        <br />
-      <% end %>
-      <%= gettext "Language" %>: 
-      <%= for locale <- Gettext.known_locales(PcrmWeb.Gettext) do %>
-        <a href={"?locale=#{locale}"}><%= locale%></a>
-      <% end %>
-    </div>
+    <footer class="bt b--moon-gray">
+      <section class="pa4">
+        <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+          <%= link (gettext "LiveDashboard"), to: Routes.live_dashboard_path(@conn, :home) %>
+          <br />
+        <% end %>
+        <%= gettext "Language" %>: 
+        <%= for locale <- Gettext.known_locales(PcrmWeb.Gettext) do %>
+          <a href={"?locale=#{locale}"}><%= locale%></a>
+        <% end %>
+      </section>
+    </footer>
   </body>
 </html>

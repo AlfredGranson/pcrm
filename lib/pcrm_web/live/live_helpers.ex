@@ -27,7 +27,7 @@ defmodule PcrmWeb.LiveHelpers do
     assigns = assign_new(assigns, :return_to, fn -> nil end)
 
     ~H"""
-    <div id="modal" class="bg-black-40 cu-pointer fade-in fixed h-100 o-01 top-0 w-100 z-1" phx-remove={hide_modal()}>
+    <div id="modal" class="bg-black-40 cu-pointer fade-in fixed h-100 left-0 o-01 top-0 w-100 z-1" phx-remove={hide_modal()}>
       <div
         id="modal-content"
         class="bg-white br2 center cu-default fade-in-scale mt5 pa4 shadow-1 w-90"
