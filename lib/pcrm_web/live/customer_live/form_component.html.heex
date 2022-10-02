@@ -1,7 +1,6 @@
-<div>
-  <h2><%= customer_form_title = @title
+<div class="cf">
+  <h2 class="bb b--moon-gray dark-gray"><%= customer_form_title = @title
     Gettext.gettext(PcrmWeb.Gettext, customer_form_title) %></h2>
-
   <.form
     let={f}
     for={@changeset}
@@ -9,25 +8,54 @@
     phx-target={@myself}
     phx-change="validate"
     phx-submit="save">
-  
-    <%= label f, :honorific_prefix , (dgettext "customers", "Honorific Prefix") %>
-    <%= text_input f, :honorific_prefix %>
-    <%= error_tag f, :honorific_prefix %>
-  
-    <%= label f, :given_name, (dgettext "customers", "Given name") %>
-    <%= text_input f, :given_name %>
-    <%= error_tag f, :given_name %>
-  
-    <%= label f, :family_name, (dgettext "customers", "Family name") %>
-    <%= text_input f, :family_name %>
-    <%= error_tag f, :family_name %>
-  
-    <%= label f, :honorific_suffix, (dgettext "customers", "Honorific Suffix") %>
-    <%= text_input f, :honorific_suffix %>
-    <%= error_tag f, :honorific_suffix %>
-  
-    <div>
-      <%= submit (gettext "Save"), phx_disable_with: (gettext "Saving...") %>
+    <div class="fl w-100 pb4 w-50-l pr4-l">
+      <div class="fl w-100">
+        <%= label f, :honorific_prefix , (dgettext "customers", "Honorific Prefix"), class: "fw3 mid-gray", style: "box-shadow: 0 8px 6px -6px black" %>
+      </div>
+      <div class="fl w-100">
+        <%= text_input f, :honorific_prefix, class: "b--moon-gray ba br2 dark-gray fw6 input-reset pa2 w-100" %>
+      </div>
+        <div class="fl w-100">
+        <%= error_tag f, :honorific_prefix %>
+      </div>
+    </div>
+    <div class="fl w-100 pb4 w-50-l">
+      <div class="fl w-100">
+        <%= label f, :given_name, (dgettext "customers", "Given name"), class: "fw3 mid-gray" %>
+      </div>
+      <div class="fl w-100">
+        <%= text_input f, :given_name, class: "b--moon-gray ba br2 dark-gray fw6 input-reset pa2 w-100" %>
+      </div>
+        <div class="fl w-100">
+        <%= error_tag f, :given_name %>
+      </div>
+    </div>
+    <div class="fl w-100 pb4 w-50-l pr4-l">
+      <div class="fl w-100">
+        <%= label f, :family_name, (dgettext "customers", "Family name"), class: "fw3 mid-gray" %>
+      </div>
+      <div class="fl w-100">
+        <%= text_input f, :family_name, class: "b--moon-gray ba br2 dark-gray fw6 input-reset pa2 w-100" %>
+      </div>
+      <div class="fl w-100">
+        <%= error_tag f, :family_name %>
+      </div>
+    </div>
+    <div class="fl w-100 pb4 w-50-l">
+      <div class="fl w-100">
+        <%= label f, :honorific_suffix, (dgettext "customers", "Honorific Suffix"), class: "fw3 mid-gray" %>
+      </div>
+      <div class="fl w-100">
+        <%= text_input f, :honorific_suffix, class: "b--moon-gray ba br2 dark-gray fw6 input-reset pa2 w-100" %>
+      </div>
+      <div class="fl w-100">
+        <%= error_tag f, :honorific_suffix %>
+      </div>
+    </div>
+    <div class="fl w-100">
+      <%= submit phx_disable_with: (gettext "Saving..."), class: "b--black-20 bn bg-animate bg-blue br2 button-reset dib f6 fw6 hover-bg-dark-blue mb3 no-underline ph3 ph4-l pointer pv2 pv3-l white" do%>
+        <i class="fa-solid fa-floppy-disk"></i> <%= gettext "Save" %>
+      <% end %>
     </div>
   </.form>
 </div>

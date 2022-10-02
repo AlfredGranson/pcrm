@@ -6,33 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="csrf-token" content={csrf_token_value()}>
     <%= live_title_tag assigns[:page_title] || "Pcrm", suffix: " · Phoenix Framework" %>
+
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
-  <body>
-    <header>
+  <body class="sans-serif" style="-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;">
+    <header class="bb b--moon-gray cf pa4">
       <section class="container">
-        <nav>
-          <ul>
+        <%= live_redirect to: Routes.index_path(@conn, :index), class: "fl" do %>
+        pcrm
+        <% end %>
+        <nav class="fr">
+          <%= render "_user_menu.html", assigns %>
+          <ul class="list">
           <%= if @current_user do %>
-            <li><%= live_redirect (gettext "Customers"), to: Routes.customer_index_path(@conn, :index) %></li>
+            <li class="fl"><%= live_redirect (gettext "Customers"), to: Routes.customer_index_path(@conn, :index) %></li>
           <%= end %>
           </ul>
-          <%= render "_user_menu.html", assigns %>
         </nav>
-        <%= live_redirect to: Routes.index_path(@conn, :index) do %>
-          <img src={Routes.static_path(@conn, "/images/phoenix.png")} alt="Phoenix Framework Logo"/>
-        <% end %>
       </section>
     </header>
     <%= @inner_content %>
-    <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-      <%= link (gettext "LiveDashboard"), to: Routes.live_dashboard_path(@conn, :home) %>
-      <br />
-    <% end %>
-    <%= gettext "Language" %>: 
-    <%= for locale <- Gettext.known_locales(PcrmWeb.Gettext) do %>
-      <a href={"?locale=#{locale}"}><%= locale%></a>
-    <% end %>
+    <footer class="bt b--moon-gray">
+      <section class="pa4">
+        <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+          <%= link (gettext "LiveDashboard"), to: Routes.live_dashboard_path(@conn, :home) %>
+          <br />
+        <% end %>
+        <%= gettext "Language" %>: 
+        <%= for locale <- Gettext.known_locales(PcrmWeb.Gettext) do %>
+          <a href={"?locale=#{locale}"}><%= locale%></a>
+        <% end %>
+      </section>
+    </footer>
   </body>
 </html>
