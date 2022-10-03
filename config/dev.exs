@@ -25,8 +25,8 @@ config :pcrm, PcrmWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "x8fEnKx/uwU7nC+9q6SCsO+nUwe5e4CL4+ExxY7Q/SdmHg3z0mTDZ4+oxogt8SbH",
   watchers: [
-    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    # Start the esbuild watcher
+    node: ["esbuild.js", "--watch", cd: Path.expand("../assets", __DIR__)]
   ]
 
 # ## SSL Support

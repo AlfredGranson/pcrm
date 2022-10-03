@@ -24,7 +24,7 @@
           <ul class="list">
           <%= if @current_user do %>
             <li class="fl"><%= live_redirect (gettext "Customers"), to: Routes.customer_index_path(@conn, :index) %></li>
-          <%= end %>
+          <% end %>
           </ul>
         </nav>
       </section>
