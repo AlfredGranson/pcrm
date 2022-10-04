@@ -2,6 +2,8 @@
 
 pcrm is a devoper-conscious Phoenix-based customer relationship management system.
 
+:warning: pcrm is in under development :warning:
+
 ## Installation & Setup
 While pcrm can be setup locally for development, it is recommended and instructions are currently only available for use with docker/docker compose.
 
