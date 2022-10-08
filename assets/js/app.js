@@ -1,5 +1,7 @@
 // We import the CSS which is extracted to its own file by esbuild.
 import "../css/app.css"
+import "../css/tachyons_v5_grid.css"; //This file is a placeholder for grid/tachyon support until v5 is available
+import "tachyons";
 
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html"
@@ -37,12 +39,11 @@ document.body.addEventListener('phoenix.link.click', function (e) {
     Swal.fire({
       html: message,
       showCancelButton: true,
-      focusConfirm: true,
+      focusConfirm: false,
       confirmButtonText:'Ok',
       cancelButtonText: "cancel",
       buttonsStyling: false,
       reverseButtons: true,
-      focusConfirm: false,
       showClass: {
         popup: 'fade-in-scale'
       },

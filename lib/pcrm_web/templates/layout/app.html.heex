@@ -1,5 +1,5 @@
 <main class="container pa4">
-  <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-  <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+  <p class="pa3 br2 bg-lightest-blue dark-blue ba b--light-blue empty-hide" role="alert"><%= get_flash(@conn, :info) %></p>
+  <p class="pa3 br2 bg-washed-red dark-red ba b--light-red empty-hide" role="alert"><%= get_flash(@conn, :error) %></p>
   <%= @inner_content %>
 </main>

@@ -12,4 +12,4 @@ RUN mix local.rebar --force
 RUN mix archive.install hex phx_new --force
 RUN npm install npm -g
 
-CMD mix deps.get && mix ecto.create && mix ecto.migrate && mix phx.server
+CMD mix deps.get & npm install --prefix assets && mix ecto.create && mix ecto.migrate && mix phx.server
