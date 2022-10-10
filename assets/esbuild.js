@@ -16,7 +16,8 @@ let opts = {
   bundle: true,
   logLevel: 'info',
   target: 'es2016',
-  outdir: '../priv/static/assets'
+  outdir: '../priv/static/assets',
+  loader: {".ttf" : "file", ".woff2" : "file"}
 }
 if (mode === 'watch') {
   opts = {
