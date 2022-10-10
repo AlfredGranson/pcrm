@@ -1,10 +1,27 @@
-// We import the CSS which is extracted to its own file by esbuild.
+/*
+  This file compiles all the CSS and Javascript for the application. 
+*/
+
+/************* CSS *************/
+// (css) styling for pcrm should be done via tachyons (https://tachyons.io) whenever possible.
+// When not possible, supplementary css can be added to /assets/css/app.css
+
+// pcrm-specific css
 import "../css/app.css"
-import "../css/tachyons_v5_grid.css"; //This file is a placeholder for grid/tachyon support until v5 is available
+
+// tachyons grid support. This file is a placeholder for grid/tachyon support until v5 is available
+import "../css/tachyons_v5_grid.css";
+
+// tachyons css
 import "tachyons";
+
+// Font Awesome
 import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
-//import "@fortawesome/fontawesome-free/css/regular.min.css";
 import "@fortawesome/fontawesome-free/css/solid.min.css";
+
+/************* JS *************/
+// Javascript should be kept to a minimum except where possible for the best user experience. 
+// All pcrm javacript should be added/configured here.
 
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html"
