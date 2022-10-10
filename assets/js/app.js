@@ -50,9 +50,12 @@ document.body.addEventListener('phoenix.link.click', function (e) {
       showClass: {
         popup: 'fade-in-scale'
       },
+      hideClass: {
+        popup: 'fade-out-scale'
+      },
       customClass: {
         container: "cu-pointer",
-        popup: "br2 cu-default",
+        popup: "br2 cu-default bn shadow-1",
         htmlContainer: "dark-gray",
         confirmButton: ["b--black-20","bn","bg-animate","bg-blue","br2","button-reset","dib","f6","fw6","hover-bg-dark-blue","mb3","no-underline",".outline-0", "ph3","ph4-l","pointer","pv2","pv3-l","white"],
         cancelButton: ["b--black-20","bn","bg-animate","bg-silver","br2","button-reset","dib","f6","fw6","hover-bg-gray","mb3","mr3","no-underline",".outline-0","ph3","ph4-l","pointer","pv2","pv3-l","white"]
