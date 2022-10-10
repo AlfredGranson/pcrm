@@ -3,7 +3,8 @@ import "../css/app.css"
 import "../css/tachyons_v5_grid.css"; //This file is a placeholder for grid/tachyon support until v5 is available
 import "tachyons";
 import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
-import "@fortawesome/fontawesome-free/css/regular.min.css";
+//import "@fortawesome/fontawesome-free/css/regular.min.css";
+import "@fortawesome/fontawesome-free/css/solid.min.css";
 
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html"
