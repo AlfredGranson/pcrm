@@ -1,4 +1,4 @@
-# pcrm ![tests](https://github.com/AlfredGranson/pcrm/actions/workflows/elixir.yml/badge.svg) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/AlfredGranson/pcrm/blob/main/LICENSE) [![repo status](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+# pcrm [![tests](https://github.com/AlfredGranson/pcrm/actions/workflows/elixir.yml/badge.svg)](https://github.com/AlfredGranson/pcrm/actions?query=branch%3Amain+workflow%3A%22Elixir+CI%22++) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/AlfredGranson/pcrm/blob/main/LICENSE)[![repo status](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
 pcrm is a devoper-conscious Phoenix-based customer relationship management system.
 
