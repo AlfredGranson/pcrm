@@ -3,7 +3,7 @@
 /* Non-Tachyons helpers */
 .cu-default { cursor: default }
 .cu-pointer { cursor: pointer }
-.rows-pcrm-template { grid-template-rows: [header] auto [main] 1fr [footer] auto }
+.rows-pcrm-template { grid-template-rows: [header] auto [body] 1fr [footer] auto }
 .empty-hide:empty{ display: none; }
 
 /* LiveView specific classes */

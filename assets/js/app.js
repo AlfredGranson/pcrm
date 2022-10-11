@@ -20,7 +20,7 @@ import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
 import "@fortawesome/fontawesome-free/css/solid.min.css";
 
 /************* JS *************/
-// Javascript should be kept to a minimum except where possible for the best user experience. 
+// Javascript should be kept to a minimum except where necessary for the best user experience. 
 // All pcrm javacript should be added/configured here.
 
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
