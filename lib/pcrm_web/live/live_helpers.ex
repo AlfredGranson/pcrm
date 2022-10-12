@@ -35,19 +35,7 @@ defmodule PcrmWeb.LiveHelpers do
         phx-window-keydown={JS.dispatch("click", to: "#close")}
         phx-key="escape"
       >
-        <%= if @return_to do %>
-          <%= live_patch to: @return_to,
-            id: "close",
-            class: "f3 fr hover-dark-gray link mid-gray",
-            phx_click: hide_modal() do
-          %>
-          <i class="fa-solid fa-rectangle-xmark"></i>
-          <% end %>
-        <% else %>
-          <a id="close" href="#" class="f3 fr hover-dark-gray link mid-gray" phx-click={hide_modal()}><i class="fa-solid fa-rectangle-xmark"></i></a>
-        <% end %>
-
-        <%= render_slot(@inner_block) %>
+      <%= render_slot(@inner_block) %>
       </div>
     </div>
     """

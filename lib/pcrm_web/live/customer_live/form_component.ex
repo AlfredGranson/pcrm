@@ -2,6 +2,7 @@ defmodule PcrmWeb.CustomerLive.FormComponent do
   use PcrmWeb, :live_component
 
   alias Pcrm.Customers
+  alias Phoenix.LiveView.JS
 
   @impl true
   def update(%{customer: customer} = assigns, socket) do

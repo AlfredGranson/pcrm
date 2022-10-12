@@ -1,5 +1,5 @@
 <div class="cf">
-  <h2 class="bb b--moon-gray dark-gray"><%= customer_form_title = @title
+  <h2 class="bb b--moon-gray dark-gray mt0"><%= customer_form_title = @title
     Gettext.gettext(PcrmWeb.Gettext, customer_form_title) %></h2>
   <.form
     let={f}
@@ -53,7 +53,21 @@
       </div>
     </div>
     <div class="fl w-100">
-      <%= submit phx_disable_with: (gettext "Saving..."), class: "b--black-20 bn bg-animate bg-blue br2 button-reset dib f6 fw6 hover-bg-dark-blue mb3 no-underline ph3 ph4-l pointer pv2 pv3-l white" do%>
+      <%= if @return_to do %>
+      <%= live_patch to: @return_to,
+        id: "close",
+        class: "b--black-20 bn bg-animate bg-silver br2 button-reset dib f6 fw6 hover-bg-gray mr2 no-underline outline-0 ph3 ph4-l pointer pv2 pv3-l white",
+        phx_click: JS.dispatch("click", to: "#close") do
+      %>
+      Cancel
+      <% end %>
+      <% else %>
+        <a id="close" href="#" class="" phx-click={JS.dispatch("click", to: "#close")}>
+          Cancel
+        </a>
+      <% end %>
+
+      <%= submit phx_disable_with: (gettext "Saving..."), class: "b--black-20 bn bg-animate bg-blue br2 button-reset dib f6 fw6 hover-bg-dark-blue no-underline ph3 ph4-l pointer pv2 pv3-l white" do%>
         <i class="fa-solid fa-floppy-disk"></i> <%= gettext "Save" %>
       <% end %>
     </div>
