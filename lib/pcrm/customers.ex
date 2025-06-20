@@ -52,7 +52,7 @@ defmodule Pcrm.Customers do
   def create_customer(attrs \\ %{}) do
     %Customer{}
     |> Customer.changeset(attrs)
-    |> Repo.insert()
+    |> PaperTrail.insert()
   end
 
   @doc """
@@ -70,7 +70,7 @@ defmodule Pcrm.Customers do
   def update_customer(%Customer{} = customer, attrs) do
     customer
     |> Customer.changeset(attrs)
-    |> Repo.update()
+    |> PaperTrail.update()
   end
 
   @doc """
@@ -86,7 +86,7 @@ defmodule Pcrm.Customers do
 
   """
   def delete_customer(%Customer{} = customer) do
-    Repo.delete(customer)
+    PaperTrail.delete(customer)
   end
 
   @doc """
