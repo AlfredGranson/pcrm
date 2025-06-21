@@ -18,6 +18,6 @@ defmodule Pcrm.CustomersFixtures do
       })
       |> Pcrm.Customers.create_customer()
 
-    customer
+    customer.model
   end
 end

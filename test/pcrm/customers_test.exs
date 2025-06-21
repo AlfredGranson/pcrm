@@ -23,7 +23,7 @@ defmodule Pcrm.CustomersTest do
     test "create_customer/1 with valid data creates a customer" do
       valid_attrs = %{family_name: "some family_name", given_name: "some given_name", honorific_prefix: "some honorific_prefix", honorific_suffix: "some honorific_suffix"}
 
-      assert {:ok, %Customer{} = customer} = Customers.create_customer(valid_attrs)
+      assert {:ok, %{model: %Customer{} = customer}} = Customers.create_customer(valid_attrs)
       assert customer.family_name == "some family_name"
       assert customer.given_name == "some given_name"
       assert customer.honorific_prefix == "some honorific_prefix"
@@ -38,7 +38,7 @@ defmodule Pcrm.CustomersTest do
       customer = customer_fixture()
       update_attrs = %{family_name: "some updated family_name", given_name: "some updated given_name", honorific_prefix: "some updated honorific_prefix", honorific_suffix: "some updated honorific_suffix"}
 
-      assert {:ok, %Customer{} = customer} = Customers.update_customer(customer, update_attrs)
+      assert {:ok, %{model: %Customer{} = customer}} = Customers.update_customer(customer, update_attrs)
       assert customer.family_name == "some updated family_name"
       assert customer.given_name == "some updated given_name"
       assert customer.honorific_prefix == "some updated honorific_prefix"
@@ -53,7 +53,7 @@ defmodule Pcrm.CustomersTest do
 
     test "delete_customer/1 deletes the customer" do
       customer = customer_fixture()
-      assert {:ok, %Customer{}} = Customers.delete_customer(customer)
+      assert {:ok, %{model: %Customer{}}} = Customers.delete_customer(customer)
       assert_raise Ecto.NoResultsError, fn -> Customers.get_customer!(customer.id) end
     end
 
