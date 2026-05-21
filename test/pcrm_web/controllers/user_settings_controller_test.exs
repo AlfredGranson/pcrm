@@ -25,8 +25,8 @@ defmodule PcrmWeb.UserSettingsControllerTest do
       new_password_conn =
         put(conn, ~p"/users/settings", %{
           "action" => "update_password",
-          "current_password" => valid_user_password(),
           "user" => %{
+            "current_password" => valid_user_password(),
             "password" => "new valid password",
             "password_confirmation" => "new valid password"
           }
@@ -42,8 +42,8 @@ defmodule PcrmWeb.UserSettingsControllerTest do
       old_password_conn =
         put(conn, ~p"/users/settings", %{
           "action" => "update_password",
-          "current_password" => "invalid",
           "user" => %{
+            "current_password" => "invalid",
             "password" => "too short",
             "password_confirmation" => "does not match"
           }
@@ -65,8 +65,10 @@ defmodule PcrmWeb.UserSettingsControllerTest do
       conn =
         put(conn, ~p"/users/settings", %{
           "action" => "update_email",
-          "current_password" => valid_user_password(),
-          "user" => %{"email" => unique_user_email()}
+          "user" => %{
+            "current_password" => valid_user_password(),
+            "email" => unique_user_email()
+          }
         })
 
       assert redirected_to(conn) == ~p"/users/settings"
@@ -78,8 +80,10 @@ defmodule PcrmWeb.UserSettingsControllerTest do
       conn =
         put(conn, ~p"/users/settings", %{
           "action" => "update_email",
-          "current_password" => "invalid",
-          "user" => %{"email" => "with spaces"}
+          "user" => %{
+            "current_password" => "invalid",
+            "email" => "with spaces"
+          }
         })
 
       response = html_response(conn, 200)

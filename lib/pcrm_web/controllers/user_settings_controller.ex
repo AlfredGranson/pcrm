@@ -11,7 +11,7 @@ defmodule PcrmWeb.UserSettingsController do
   end
 
   def update(conn, %{"action" => "update_email"} = params) do
-    %{"current_password" => password, "user" => user_params} = params
+    %{"user" => %{"current_password" => password} = user_params} = params
     user = conn.assigns.current_user
 
     case Users.apply_user_email(user, password, user_params) do
@@ -35,7 +35,7 @@ defmodule PcrmWeb.UserSettingsController do
   end
 
   def update(conn, %{"action" => "update_password"} = params) do
-    %{"current_password" => password, "user" => user_params} = params
+    %{"user" => %{"current_password" => password} = user_params} = params
     user = conn.assigns.current_user
 
     case Users.update_user_password(user, password, user_params) do

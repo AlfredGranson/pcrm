@@ -24,7 +24,6 @@
       <.input field={f[:email]} type="email" label={dgettext("users", "Email")} required />
       <.input
         field={f[:current_password]}
-        name="current_password"
         id="current_password_for_email"
         type="password"
         label={dgettext("users", "Current Password")}
@@ -69,7 +68,6 @@
       />
       <.input
         field={f[:current_password]}
-        name="current_password"
         id="current_password_for_password"
         type="password"
         label={dgettext("users", "Current Password")}
