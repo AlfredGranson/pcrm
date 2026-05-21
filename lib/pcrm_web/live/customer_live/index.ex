@@ -33,10 +33,14 @@ defmodule PcrmWeb.CustomerLive.Index do
   end
 
   @impl true
+  def handle_info({PcrmWeb.CustomerLive.FormComponent, {:saved, _customer}}, socket) do
+    {:noreply, assign(socket, :customers, list_customers())}
+  end
+
+  @impl true
   def handle_event("delete", %{"id" => id}, socket) do
     customer = Customers.get_customer!(id)
     {:ok, _} = Customers.delete_customer(customer)
-
     {:noreply, assign(socket, :customers, list_customers())}
   end
 

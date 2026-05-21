@@ -1,0 +1,36 @@
+<.header>
+  {dgettext("users", "Reset password")}
+</.header>
+
+<.form :let={f} for={@changeset} action={~p"/users/reset_password/#{@token}"} class="mt-6 space-y-4">
+  <%= if @changeset.action do %>
+    <div class="bg-red-50 border border-red-200 text-red-800 rounded-lg p-4 text-sm">
+      {gettext("Oops, something went wrong! Please check the errors below.")}
+    </div>
+  <% end %>
+
+  <.input
+    field={f[:password]}
+    type="password"
+    label={dgettext("users", "New password")}
+    required
+  />
+  <.input
+    field={f[:password_confirmation]}
+    type="password"
+    label={dgettext("users", "Confirm new password")}
+    required
+  />
+
+  <.button type="submit">{dgettext("users", "Reset password")}</.button>
+</.form>
+
+<p class="mt-6 text-sm text-gray-600">
+  <.link href={~p"/users/register"} class="text-blue-600 hover:text-blue-500">
+    {gettext("Register")}
+  </.link>
+  ·
+  <.link href={~p"/users/log_in"} class="text-blue-600 hover:text-blue-500">
+    {gettext("Log in")}
+  </.link>
+</p>

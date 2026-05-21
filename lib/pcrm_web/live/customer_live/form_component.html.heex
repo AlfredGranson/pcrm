@@ -1,75 +1,46 @@
-<div class="cf">
-  <h2 class="bb b--moon-gray dark-gray mt0"><%= customer_form_title = @title
-    Gettext.gettext(PcrmWeb.Gettext, customer_form_title) %></h2>
+<div>
+  <h2 class="border-b border-gray-200 text-gray-800 font-light text-lg pb-2 mb-6">
+    {Gettext.gettext(PcrmWeb.Gettext, @title)}
+  </h2>
+
   <.form
-    let={f}
-    for={@changeset}
+    for={@form}
     id="customer-form"
     phx-target={@myself}
     phx-change="validate"
-    phx-submit="save">
-    <div class="fl w-100 pb4 w-50-l pr4-l">
-      <div class="fl w-100">
-        <%= label f, :honorific_prefix , (dgettext "customers", "Honorific Prefix"), class: "fw3 mid-gray" %>
-      </div>
-      <div class="fl w-100">
-        <%= text_input f, :honorific_prefix, class: "b--moon-gray ba br2 dark-gray fw6 input-reset pa2 w-100" %>
-      </div>
-        <div class="fl w-100">
-        <%= error_tag f, :honorific_prefix %>
-      </div>
+    phx-submit="save"
+  >
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <.input field={@form[:honorific_prefix]} label={dgettext("customers", "Honorific Prefix")} />
+      <.input field={@form[:given_name]} label={dgettext("customers", "Given name")} />
+      <.input field={@form[:family_name]} label={dgettext("customers", "Family name")} />
+      <.input field={@form[:honorific_suffix]} label={dgettext("customers", "Honorific Suffix")} />
     </div>
-    <div class="fl w-100 pb4 w-50-l">
-      <div class="fl w-100">
-        <%= label f, :given_name, (dgettext "customers", "Given name"), class: "fw3 mid-gray" %>
-      </div>
-      <div class="fl w-100">
-        <%= text_input f, :given_name, class: "b--moon-gray ba br2 dark-gray fw6 input-reset pa2 w-100" %>
-      </div>
-        <div class="fl w-100">
-        <%= error_tag f, :given_name %>
-      </div>
-    </div>
-    <div class="fl w-100 pb4 w-50-l pr4-l">
-      <div class="fl w-100">
-        <%= label f, :family_name, (dgettext "customers", "Family name"), class: "fw3 mid-gray" %>
-      </div>
-      <div class="fl w-100">
-        <%= text_input f, :family_name, class: "b--moon-gray ba br2 dark-gray fw6 input-reset pa2 w-100" %>
-      </div>
-      <div class="fl w-100">
-        <%= error_tag f, :family_name %>
-      </div>
-    </div>
-    <div class="fl w-100 pb4 w-50-l">
-      <div class="fl w-100">
-        <%= label f, :honorific_suffix, (dgettext "customers", "Honorific Suffix"), class: "fw3 mid-gray" %>
-      </div>
-      <div class="fl w-100">
-        <%= text_input f, :honorific_suffix, class: "b--moon-gray ba br2 dark-gray fw6 input-reset pa2 w-100" %>
-      </div>
-      <div class="fl w-100">
-        <%= error_tag f, :honorific_suffix %>
-      </div>
-    </div>
-    <div class="fl w-100">
+
+    <div class="flex items-center gap-3 mt-6">
       <%= if @return_to do %>
-      <%= live_patch to: @return_to,
-        id: "close",
-        class: "b--black-20 bn bg-animate bg-silver br2 button-reset dib f6 fw6 hover-bg-gray mr2 no-underline outline-0 ph3 ph4-l pointer pv2 pv3-l white",
-        phx_click: JS.dispatch("click", to: "#close") do
-      %>
-      Cancel
-      <% end %>
+        <.link
+          id="close"
+          patch={@return_to}
+          class="rounded-lg bg-gray-400 hover:bg-gray-500 py-2 px-3 text-sm font-semibold text-white no-underline"
+        >
+          {gettext("Cancel")}
+        </.link>
       <% else %>
-        <a id="close" href="#" class="" phx-click={JS.dispatch("click", to: "#close")}>
-          Cancel
+        <a
+          id="close"
+          href="#"
+          phx-click={JS.dispatch("click", to: "#close")}
+          class="rounded-lg bg-gray-400 hover:bg-gray-500 py-2 px-3 text-sm font-semibold text-white no-underline"
+        >
+          {gettext("Cancel")}
         </a>
       <% end %>
 
-      <%= submit phx_disable_with: (gettext "Saving..."), class: "b--black-20 bn bg-animate bg-blue br2 button-reset dib f6 fw6 hover-bg-dark-blue no-underline ph3 ph4-l pointer pv2 pv3-l white" do%>
-        <i class="fa-solid fa-floppy-disk"></i> <%= gettext "Save" %>
-      <% end %>
+      <.button type="submit" phx-disable-with={gettext("Saving...")}>
+        <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
+        {gettext("Save")}
+      </.button>
     </div>
   </.form>
 </div>

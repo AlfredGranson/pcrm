@@ -1,41 +1,50 @@
-<h1><%= dgettext "customers", "Show Customer"%></h1>
+<.header>
+  {dgettext("customers", "Show Customer")}
+  <:actions>
+    <.link patch={~p"/customers/#{@customer.id}/show/edit"}>
+      <.button>{gettext("Edit")}</.button>
+    </.link>
+    <.back navigate={~p"/customers"}>{gettext("Back")}</.back>
+  </:actions>
+</.header>
 
-<%= if @live_action in [:edit] do %>
-  <.modal return_to={Routes.customer_show_path(@socket, :show, @customer)}>
-    <.live_component
-      module={PcrmWeb.CustomerLive.FormComponent}
-      id={@customer.id}
-      title={@page_title}
-      action={@live_action}
-      customer={@customer}
-      return_to={Routes.customer_show_path(@socket, :show, @customer)}
-    />
-  </.modal>
-<% end %>
+<.modal
+  :if={@live_action == :edit}
+  id="customer-modal"
+  show
+  on_cancel={JS.patch(~p"/customers/#{@customer.id}")}
+>
+  <.live_component
+    module={PcrmWeb.CustomerLive.FormComponent}
+    id={@customer.id}
+    title={@page_title}
+    action={@live_action}
+    customer={@customer}
+    return_to={~p"/customers/#{@customer.id}"}
+  />
+</.modal>
 
-<ul>
-
-  <li>
-    <strong><%= dgettext "customers", "Honorific Prefix"%>:</strong>
-    <%= @customer.honorific_prefix %>
+<ul class="mt-8 space-y-3 text-sm text-gray-700">
+  <li class="flex gap-2">
+    <strong class="font-semibold text-gray-900 w-40">
+      {dgettext("customers", "Honorific Prefix")}:
+    </strong>
+    {@customer.honorific_prefix}
   </li>
-
-  <li>
-    <strong><%= dgettext "customers", "Given name"%>:</strong>
-    <%= @customer.given_name %>
+  <li class="flex gap-2">
+    <strong class="font-semibold text-gray-900 w-40">{dgettext("customers", "Given name")}:</strong>
+    {@customer.given_name}
   </li>
-
-  <li>
-    <strong><%= dgettext "customers", "Family name"%>:</strong>
-    <%= @customer.family_name %>
+  <li class="flex gap-2">
+    <strong class="font-semibold text-gray-900 w-40">
+      {dgettext("customers", "Family name")}:
+    </strong>
+    {@customer.family_name}
   </li>
-
-  <li>
-    <strong><%= dgettext "customers", "Honorific Suffix"%>:</strong>
-    <%= @customer.honorific_suffix %>
+  <li class="flex gap-2">
+    <strong class="font-semibold text-gray-900 w-40">
+      {dgettext("customers", "Honorific Suffix")}:
+    </strong>
+    {@customer.honorific_suffix}
   </li>
-
 </ul>
-
-<span><%= live_patch (gettext "Edit"), to: Routes.customer_show_path(@socket, :edit, @customer), class: "button" %></span> |
-<span><%= live_redirect (gettext "Back"), to: Routes.customer_index_path(@socket, :index) %></span>

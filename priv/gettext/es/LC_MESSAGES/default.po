@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Language: es\n"
-"Plural-Forms: nplurals=2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/pcrm_web/live/index_live.html.heex:2
 #, elixir-autogen, elixir-format

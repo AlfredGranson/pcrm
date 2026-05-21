@@ -24,7 +24,10 @@ defmodule PcrmWeb.ConnCase do
       import Phoenix.ConnTest
       import PcrmWeb.ConnCase
 
-      alias PcrmWeb.Router.Helpers, as: Routes
+      use Phoenix.VerifiedRoutes,
+        endpoint: PcrmWeb.Endpoint,
+        router: PcrmWeb.Router,
+        statics: PcrmWeb.static_paths()
 
       # The default endpoint for testing
       @endpoint PcrmWeb.Endpoint

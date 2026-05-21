@@ -1,0 +1,18 @@
+<.header>
+  {dgettext("users", "Forgot your password?")}
+</.header>
+
+<.form :let={f} for={%{}} as={:user} action={~p"/users/reset_password"} class="mt-6 space-y-4">
+  <.input field={f[:email]} type="email" label={dgettext("users", "Email")} required />
+  <.button type="submit">{dgettext("users", "Send instructions to reset password")}</.button>
+</.form>
+
+<p class="mt-6 text-sm text-gray-600">
+  <.link href={~p"/users/register"} class="text-blue-600 hover:text-blue-500">
+    {gettext("Register")}
+  </.link>
+  ·
+  <.link href={~p"/users/log_in"} class="text-blue-600 hover:text-blue-500">
+    {gettext("Log in")}
+  </.link>
+</p>

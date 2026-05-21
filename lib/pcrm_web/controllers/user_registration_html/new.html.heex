@@ -1,0 +1,26 @@
+<.header>
+  {gettext("Register")}
+</.header>
+
+<.form :let={f} for={@changeset} action={~p"/users/register"} class="mt-6 space-y-4">
+  <%= if @changeset.action do %>
+    <div class="bg-red-50 border border-red-200 text-red-800 rounded-lg p-4 text-sm">
+      {gettext("Oops, something went wrong! Please check the errors below.")}
+    </div>
+  <% end %>
+
+  <.input field={f[:email]} type="email" label={dgettext("users", "Email")} required />
+  <.input field={f[:password]} type="password" label={dgettext("users", "Password")} required />
+
+  <.button type="submit">{gettext("Register")}</.button>
+</.form>
+
+<p class="mt-6 text-sm text-gray-600">
+  <.link href={~p"/users/log_in"} class="text-blue-600 hover:text-blue-500">
+    {gettext("Log in")}
+  </.link>
+  ·
+  <.link href={~p"/users/reset_password"} class="text-blue-600 hover:text-blue-500">
+    {gettext("Forgot your password?")}
+  </.link>
+</p>

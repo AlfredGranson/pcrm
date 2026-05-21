@@ -7,7 +7,7 @@ defmodule PcrmWeb.UserRegistrationController do
 
   def new(conn, _params) do
     changeset = Users.change_user_registration(%User{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, :new, changeset: changeset)
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -16,7 +16,7 @@ defmodule PcrmWeb.UserRegistrationController do
         {:ok, _} =
           Users.deliver_user_confirmation_instructions(
             user.model,
-            &Routes.user_confirmation_url(conn, :edit, &1)
+            &url(~p"/users/confirm/#{&1}")
           )
 
         conn
@@ -24,7 +24,7 @@ defmodule PcrmWeb.UserRegistrationController do
         |> UserAuth.log_in_user(user.model)
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, :new, changeset: changeset)
     end
   end
 end

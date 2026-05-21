@@ -1,0 +1,33 @@
+<header class="border-b border-gray-200 px-6 py-4">
+  <div class="container mx-auto flex items-center justify-between">
+    <.link navigate={~p"/"} class="font-semibold text-gray-900 hover:text-gray-700 no-underline">
+      pcrm
+    </.link>
+    <nav class="flex items-center gap-6">
+      <.user_menu current_user={@current_user} />
+      <%= if @current_user do %>
+        <ul class="flex gap-4 list-none m-0 p-0">
+          <li>
+            <.link navigate={~p"/customers"} class="text-sm text-gray-700 hover:text-gray-900">
+              {gettext("Customers")}
+            </.link>
+          </li>
+        </ul>
+      <% end %>
+    </nav>
+  </div>
+</header>
+
+<main class="container mx-auto px-6 py-8">
+  <.flash_group flash={@flash} />
+  {@inner_content}
+</main>
+
+<footer class="border-t border-gray-200 px-6 py-4">
+  <div class="container mx-auto text-sm text-gray-500">
+    {gettext("Language")}:
+    <%= for locale <- Gettext.known_locales(PcrmWeb.Gettext) do %>
+      <a href={"?locale=#{locale}"} class="hover:text-gray-700 ml-1">{locale}</a>
+    <% end %>
+  </div>
+</footer>

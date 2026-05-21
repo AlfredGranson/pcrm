@@ -11,7 +11,7 @@ defmodule PcrmWeb.UserConfirmationControllerTest do
 
   describe "GET /users/confirm" do
     test "renders the resend confirmation page", %{conn: conn} do
-      conn = get(conn, Routes.user_confirmation_path(conn, :new))
+      conn = get(conn, ~p"/users/confirm")
       response = html_response(conn, 200)
       assert response =~ "<h1>Resend confirmation instructions</h1>"
     end
@@ -21,7 +21,7 @@ defmodule PcrmWeb.UserConfirmationControllerTest do
     @tag :capture_log
     test "sends a new confirmation token", %{conn: conn, user: user} do
       conn =
-        post(conn, Routes.user_confirmation_path(conn, :create), %{
+        post(conn, ~p"/users/confirm", %{
           "user" => %{"email" => user.email}
         })
 
@@ -34,7 +34,7 @@ defmodule PcrmWeb.UserConfirmationControllerTest do
       Repo.update!(Users.User.confirm_changeset(user))
 
       conn =
-        post(conn, Routes.user_confirmation_path(conn, :create), %{
+        post(conn, ~p"/users/confirm", %{
           "user" => %{"email" => user.email}
         })
 
@@ -45,7 +45,7 @@ defmodule PcrmWeb.UserConfirmationControllerTest do
 
     test "does not send confirmation token if email is invalid", %{conn: conn} do
       conn =
-        post(conn, Routes.user_confirmation_path(conn, :create), %{
+        post(conn, ~p"/users/confirm", %{
           "user" => %{"email" => "unknown@example.com"}
         })
 
@@ -57,12 +57,11 @@ defmodule PcrmWeb.UserConfirmationControllerTest do
 
   describe "GET /users/confirm/:token" do
     test "renders the confirmation page", %{conn: conn} do
-      conn = get(conn, Routes.user_confirmation_path(conn, :edit, "some-token"))
+      conn = get(conn, ~p"/users/confirm/some-token")
       response = html_response(conn, 200)
       assert response =~ "<h1>Confirm account</h1>"
 
-      form_action = Routes.user_confirmation_path(conn, :update, "some-token")
-      assert response =~ "action=\"#{form_action}\""
+      assert response =~ ~s(action="/users/confirm/some-token")
     end
   end
 
@@ -73,7 +72,7 @@ defmodule PcrmWeb.UserConfirmationControllerTest do
           Users.deliver_user_confirmation_instructions(user, url)
         end)
 
-      conn = post(conn, Routes.user_confirmation_path(conn, :update, token))
+      conn = post(conn, ~p"/users/confirm/#{token}")
       assert redirected_to(conn) == "/"
       assert get_flash(conn, :info) =~ "User confirmed successfully"
       assert Users.get_user!(user.id).confirmed_at
@@ -81,7 +80,7 @@ defmodule PcrmWeb.UserConfirmationControllerTest do
       assert Repo.all(Users.UserToken) == []
 
       # When not logged in
-      conn = post(conn, Routes.user_confirmation_path(conn, :update, token))
+      conn = post(conn, ~p"/users/confirm/#{token}")
       assert redirected_to(conn) == "/"
       assert get_flash(conn, :error) =~ "User confirmation link is invalid or it has expired"
 
@@ -89,14 +88,14 @@ defmodule PcrmWeb.UserConfirmationControllerTest do
       conn =
         build_conn()
         |> log_in_user(user)
-        |> post(Routes.user_confirmation_path(conn, :update, token))
+        |> post(~p"/users/confirm/#{token}")
 
       assert redirected_to(conn) == "/"
       refute get_flash(conn, :error)
     end
 
     test "does not confirm email with invalid token", %{conn: conn, user: user} do
-      conn = post(conn, Routes.user_confirmation_path(conn, :update, "oops"))
+      conn = post(conn, ~p"/users/confirm/oops")
       assert redirected_to(conn) == "/"
       assert get_flash(conn, :error) =~ "User confirmation link is invalid or it has expired"
       refute Users.get_user!(user.id).confirmed_at
