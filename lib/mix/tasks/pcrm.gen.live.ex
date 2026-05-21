@@ -4,9 +4,41 @@ defmodule Mix.Tasks.Pcrm.Gen.Live do
   @shortdoc "Generates a LiveView resource with PCRM conventions"
 
   def run(args) do
-    Mix.Task.run("phx.gen.live", args)
-    [_context, schema, plural | _] = args
-    inject_routes(schema, plural)
+    {our_flags, gen_args} = Enum.split_with(args, &(&1 in ["--no-router-inject"]))
+    inject = "--no-router-inject" not in our_flags
+
+    original_shell = Mix.shell()
+    Mix.shell(Mix.Shell.Process)
+    Mix.Task.run("phx.gen.live", gen_args)
+    Mix.shell(original_shell)
+
+    flush_shell_messages(inject)
+
+    if inject do
+      [_context, schema, plural | _] = gen_args
+      inject_routes(schema, plural)
+    end
+  end
+
+  defp flush_shell_messages(inject) do
+    receive do
+      {:mix_shell, :info, [msg]} ->
+        unless inject and routes_message?(msg) do
+          Mix.shell().info(msg)
+        end
+
+        flush_shell_messages(inject)
+
+      {:mix_shell, :error, [msg]} ->
+        Mix.shell().error(msg)
+        flush_shell_messages(inject)
+    after
+      0 -> :ok
+    end
+  end
+
+  defp routes_message?(msg) do
+    msg |> IO.chardata_to_string() |> String.contains?("Add the live routes")
   end
 
   defp inject_routes(schema, plural) do
