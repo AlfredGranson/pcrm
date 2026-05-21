@@ -45,7 +45,8 @@ defmodule Pcrm.MixProject do
       {:bandit, "~> 1.11"},
       {:paper_trail, "~> 1.1"},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
-      {:tailwind, "~> 0.3", runtime: Mix.env() == :dev}
+      {:tailwind, "~> 0.3", runtime: Mix.env() == :dev},
+      {:igniter, "~> 0.8"}
     ]
   end
 
