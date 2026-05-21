@@ -121,21 +121,104 @@ defmodule PcrmWeb.CoreComponents do
   end
 
   attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(disabled form name value)
+  attr :variant, :string, default: nil
+  attr :rest, :global, include: ~w(disabled form name value type href navigate patch)
   slot :inner_block, required: true
 
-  def button(assigns) do
-    ~H"""
-    <button
-      class={[
-        "phx-submit-loading:opacity-75 rounded-lg bg-blue-600 hover:bg-blue-700 py-2 px-3",
+  def button(%{rest: rest} = assigns) do
+    color =
+      case assigns[:variant] do
+        "secondary" -> "bg-gray-400 hover:bg-gray-500"
+        _ -> "bg-blue-600 hover:bg-blue-700"
+      end
+
+    assigns =
+      assign(assigns, :base_class, [
+        "phx-submit-loading:opacity-75 rounded-lg py-2 px-3",
         "text-sm font-semibold leading-6 text-white active:text-white/80",
-        @class
-      ]}
-      {@rest}
-    >
-      {render_slot(@inner_block)}
-    </button>
+        color,
+        assigns.class
+      ])
+
+    if rest[:href] || rest[:navigate] || rest[:patch] do
+      ~H"""
+      <.link class={@base_class} {@rest}>
+        {render_slot(@inner_block)}
+      </.link>
+      """
+    else
+      ~H"""
+      <button class={@base_class} {@rest}>
+        {render_slot(@inner_block)}
+      </button>
+      """
+    end
+  end
+
+  attr :id, :string, required: true
+  attr :rows, :list, required: true
+  attr :row_id, :any, default: nil, doc: "the function for generating the row id"
+  attr :row_click, :any, default: nil, doc: "the function for handling phx-click on each row"
+  attr :row_item, :any, default: &Function.identity/1
+
+  slot :col, required: true do
+    attr :label, :string
+  end
+
+  slot :action, doc: "the slot for showing user actions in the last table column"
+
+  def table(assigns) do
+    assigns =
+      with %{rows: %Phoenix.LiveView.LiveStream{}} <- assigns do
+        assign(assigns, row_id: assigns.row_id || fn {id, _item} -> id end)
+      end
+
+    ~H"""
+    <div class="mt-8 overflow-x-auto">
+      <table class="w-full text-sm text-left text-gray-700">
+        <thead class="text-xs text-gray-500 uppercase border-b border-gray-200">
+          <tr>
+            <th :for={col <- @col} class="py-3 pr-6 font-medium">{col[:label]}</th>
+            <th :if={@action != []} class="py-3"></th>
+          </tr>
+        </thead>
+        <tbody
+          id={@id}
+          phx-update={is_struct(@rows, Phoenix.LiveView.LiveStream) && "stream"}
+          class="divide-y divide-gray-100"
+        >
+          <tr :for={row <- @rows} id={@row_id && @row_id.(row)} class="hover:bg-gray-50">
+            <td
+              :for={col <- @col}
+              phx-click={@row_click && @row_click.(row)}
+              class={["py-3 pr-6", @row_click && "cursor-pointer"]}
+            >
+              {render_slot(col, @row_item.(row))}
+            </td>
+            <td :if={@action != []} class="py-3 flex items-center gap-3">
+              <%= for action <- @action do %>
+                {render_slot(action, @row_item.(row))}
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    """
+  end
+
+  slot :item, required: true do
+    attr :title, :string, required: true
+  end
+
+  def list(assigns) do
+    ~H"""
+    <ul class="mt-8 space-y-3 text-sm text-gray-700">
+      <li :for={item <- @item} class="flex gap-2">
+        <strong class="font-semibold text-gray-900 w-40">{item.title}:</strong>
+        {render_slot(item)}
+      </li>
+    </ul>
     """
   end
 
