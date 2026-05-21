@@ -11,9 +11,9 @@ defmodule PcrmWeb.UserSessionControllerTest do
     test "renders log in page", %{conn: conn} do
       conn = get(conn, ~p"/users/log_in")
       response = html_response(conn, 200)
-      assert response =~ "<h1>Log in</h1>"
-      assert response =~ "Register</a>"
-      assert response =~ "Forgot your password?</a>"
+      assert response =~ ~r/Log in\s*<\/h1>/
+      assert response =~ ~r/Register\s*<\/a>/
+      assert response =~ ~r/Forgot your password\?\s*<\/a>/
     end
 
     test "redirects if already logged in", %{conn: conn, user: user} do
@@ -36,8 +36,8 @@ defmodule PcrmWeb.UserSessionControllerTest do
       conn = get(conn, "/")
       response = html_response(conn, 200)
       assert response =~ user.email
-      assert response =~ "Settings</a>"
-      assert response =~ "Log out</a>"
+      assert response =~ ~r/Settings\s*<\/a>/
+      assert response =~ ~r/Log out\s*<\/a>/
     end
 
     test "logs the user in with remember me", %{conn: conn, user: user} do
@@ -75,7 +75,7 @@ defmodule PcrmWeb.UserSessionControllerTest do
         })
 
       response = html_response(conn, 200)
-      assert response =~ "<h1>Log in</h1>"
+      assert response =~ ~r/Log in\s*<\/h1>/
       assert response =~ "Invalid email or password"
     end
   end
@@ -85,14 +85,14 @@ defmodule PcrmWeb.UserSessionControllerTest do
       conn = conn |> log_in_user(user) |> delete(~p"/users/log_out")
       assert redirected_to(conn) == "/"
       refute get_session(conn, :user_token)
-      assert get_flash(conn, :info) =~ "Logged out successfully"
+      assert Phoenix.Flash.get(conn.assigns.flash, :info) =~ "Logged out successfully"
     end
 
     test "succeeds even if the user is not logged in", %{conn: conn} do
       conn = delete(conn, ~p"/users/log_out")
       assert redirected_to(conn) == "/"
       refute get_session(conn, :user_token)
-      assert get_flash(conn, :info) =~ "Logged out successfully"
+      assert Phoenix.Flash.get(conn.assigns.flash, :info) =~ "Logged out successfully"
     end
   end
 end

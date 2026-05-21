@@ -13,7 +13,7 @@ defmodule PcrmWeb.UserConfirmationControllerTest do
     test "renders the resend confirmation page", %{conn: conn} do
       conn = get(conn, ~p"/users/confirm")
       response = html_response(conn, 200)
-      assert response =~ "<h1>Resend confirmation instructions</h1>"
+      assert response =~ ~r/Resend confirmation instructions\s*<\/h1>/
     end
   end
 
@@ -26,7 +26,7 @@ defmodule PcrmWeb.UserConfirmationControllerTest do
         })
 
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ "If your email is in our system"
+      assert Phoenix.Flash.get(conn.assigns.flash, :info) =~ "If your email is in our system"
       assert Repo.get_by!(Users.UserToken, user_id: user.id).context == "confirm"
     end
 
@@ -39,7 +39,7 @@ defmodule PcrmWeb.UserConfirmationControllerTest do
         })
 
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ "If your email is in our system"
+      assert Phoenix.Flash.get(conn.assigns.flash, :info) =~ "If your email is in our system"
       refute Repo.get_by(Users.UserToken, user_id: user.id)
     end
 
@@ -50,7 +50,7 @@ defmodule PcrmWeb.UserConfirmationControllerTest do
         })
 
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ "If your email is in our system"
+      assert Phoenix.Flash.get(conn.assigns.flash, :info) =~ "If your email is in our system"
       assert Repo.all(Users.UserToken) == []
     end
   end
@@ -59,8 +59,7 @@ defmodule PcrmWeb.UserConfirmationControllerTest do
     test "renders the confirmation page", %{conn: conn} do
       conn = get(conn, ~p"/users/confirm/some-token")
       response = html_response(conn, 200)
-      assert response =~ "<h1>Confirm account</h1>"
-
+      assert response =~ ~r/Confirm account\s*<\/h1>/
       assert response =~ ~s(action="/users/confirm/some-token")
     end
   end
@@ -74,7 +73,7 @@ defmodule PcrmWeb.UserConfirmationControllerTest do
 
       conn = post(conn, ~p"/users/confirm/#{token}")
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ "User confirmed successfully"
+      assert Phoenix.Flash.get(conn.assigns.flash, :info) =~ "User confirmed successfully"
       assert Users.get_user!(user.id).confirmed_at
       refute get_session(conn, :user_token)
       assert Repo.all(Users.UserToken) == []
@@ -82,7 +81,7 @@ defmodule PcrmWeb.UserConfirmationControllerTest do
       # When not logged in
       conn = post(conn, ~p"/users/confirm/#{token}")
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :error) =~ "User confirmation link is invalid or it has expired"
+      assert Phoenix.Flash.get(conn.assigns.flash, :error) =~ "User confirmation link is invalid or it has expired"
 
       # When logged in
       conn =
@@ -91,13 +90,13 @@ defmodule PcrmWeb.UserConfirmationControllerTest do
         |> post(~p"/users/confirm/#{token}")
 
       assert redirected_to(conn) == "/"
-      refute get_flash(conn, :error)
+      refute Phoenix.Flash.get(conn.assigns.flash, :error)
     end
 
     test "does not confirm email with invalid token", %{conn: conn, user: user} do
       conn = post(conn, ~p"/users/confirm/oops")
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :error) =~ "User confirmation link is invalid or it has expired"
+      assert Phoenix.Flash.get(conn.assigns.flash, :error) =~ "User confirmation link is invalid or it has expired"
       refute Users.get_user!(user.id).confirmed_at
     end
   end

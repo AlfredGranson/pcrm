@@ -13,7 +13,7 @@ defmodule PcrmWeb.UserResetPasswordControllerTest do
     test "renders the reset password page", %{conn: conn} do
       conn = get(conn, ~p"/users/reset_password")
       response = html_response(conn, 200)
-      assert response =~ "<h1>Forgot your password?</h1>"
+      assert response =~ ~r/Forgot your password\?\s*<\/h1>/
     end
   end
 
@@ -26,7 +26,7 @@ defmodule PcrmWeb.UserResetPasswordControllerTest do
         })
 
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ "If your email is in our system"
+      assert Phoenix.Flash.get(conn.assigns.flash, :info) =~ "If your email is in our system"
       assert Repo.get_by!(Users.UserToken, user_id: user.id).context == "reset_password"
     end
 
@@ -37,7 +37,7 @@ defmodule PcrmWeb.UserResetPasswordControllerTest do
         })
 
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ "If your email is in our system"
+      assert Phoenix.Flash.get(conn.assigns.flash, :info) =~ "If your email is in our system"
       assert Repo.all(Users.UserToken) == []
     end
   end
@@ -54,13 +54,13 @@ defmodule PcrmWeb.UserResetPasswordControllerTest do
 
     test "renders reset password", %{conn: conn, token: token} do
       conn = get(conn, ~p"/users/reset_password/#{token}")
-      assert html_response(conn, 200) =~ "<h1>Reset password</h1>"
+      assert html_response(conn, 200) =~ ~r/Reset password\s*<\/h1>/
     end
 
     test "does not render reset password with invalid token", %{conn: conn} do
       conn = get(conn, ~p"/users/reset_password/oops")
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :error) =~ "Reset password link is invalid or it has expired"
+      assert Phoenix.Flash.get(conn.assigns.flash, :error) =~ "Reset password link is invalid or it has expired"
     end
   end
 
@@ -85,7 +85,7 @@ defmodule PcrmWeb.UserResetPasswordControllerTest do
 
       assert redirected_to(conn) == ~p"/users/log_in"
       refute get_session(conn, :user_token)
-      assert get_flash(conn, :info) =~ "Password reset successfully"
+      assert Phoenix.Flash.get(conn.assigns.flash, :info) =~ "Password reset successfully"
       assert Users.get_user_by_email_and_password(user.email, "new valid password")
     end
 
@@ -99,7 +99,7 @@ defmodule PcrmWeb.UserResetPasswordControllerTest do
         })
 
       response = html_response(conn, 200)
-      assert response =~ "<h1>Reset password</h1>"
+      assert response =~ ~r/Reset password\s*<\/h1>/
       assert response =~ "should be at least 12 character(s)"
       assert response =~ "does not match password"
     end
@@ -107,7 +107,7 @@ defmodule PcrmWeb.UserResetPasswordControllerTest do
     test "does not reset password with invalid token", %{conn: conn} do
       conn = put(conn, ~p"/users/reset_password/oops")
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :error) =~ "Reset password link is invalid or it has expired"
+      assert Phoenix.Flash.get(conn.assigns.flash, :error) =~ "Reset password link is invalid or it has expired"
     end
   end
 end

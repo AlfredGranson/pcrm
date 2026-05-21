@@ -7,9 +7,9 @@ defmodule PcrmWeb.UserRegistrationControllerTest do
     test "renders registration page", %{conn: conn} do
       conn = get(conn, ~p"/users/register")
       response = html_response(conn, 200)
-      assert response =~ "<h1>Register</h1>"
-      assert response =~ "Log in</a>"
-      assert response =~ "Register</a>"
+      assert response =~ ~r/Register\s*<\/h1>/
+      assert response =~ ~r/Log in\s*<\/a>/
+      assert response =~ ~r/Register\s*<\/a>/
     end
 
     test "redirects if already logged in", %{conn: conn} do
@@ -35,8 +35,8 @@ defmodule PcrmWeb.UserRegistrationControllerTest do
       conn = get(conn, "/")
       response = html_response(conn, 200)
       assert response =~ email
-      assert response =~ "Settings</a>"
-      assert response =~ "Log out</a>"
+      assert response =~ ~r/Settings\s*<\/a>/
+      assert response =~ ~r/Log out\s*<\/a>/
     end
 
     test "render errors for invalid data", %{conn: conn} do
@@ -46,7 +46,7 @@ defmodule PcrmWeb.UserRegistrationControllerTest do
         })
 
       response = html_response(conn, 200)
-      assert response =~ "<h1>Register</h1>"
+      assert response =~ ~r/Register\s*<\/h1>/
       assert response =~ "must have the @ sign and no spaces"
       assert response =~ "should be at least 12 character"
     end
