@@ -28,10 +28,9 @@ defmodule PcrmWeb.Router do
     live "/", IndexLive, :index
 
     live "/customers", CustomerLive.Index, :index
-    live "/customers/new", CustomerLive.Index, :new
-    live "/customers/:id/edit", CustomerLive.Index, :edit
+    live "/customers/new", CustomerLive.Form, :new
     live "/customers/:id", CustomerLive.Show, :show
-    live "/customers/:id/show/edit", CustomerLive.Show, :edit
+    live "/customers/:id/edit", CustomerLive.Form, :edit
   end
 
   if Mix.env() in [:dev, :test] do

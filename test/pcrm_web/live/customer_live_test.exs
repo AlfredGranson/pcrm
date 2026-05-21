@@ -38,20 +38,25 @@ defmodule PcrmWeb.CustomerLiveTest do
       %{conn: conn} = register_and_log_in_user(%{conn: conn})
       {:ok, index_live, _html} = live(conn, ~p"/customers")
 
-      assert index_live |> element("a", "New Customer") |> render_click() =~ "New Customer"
+      assert {:ok, form_live, _} =
+               index_live
+               |> element("a", "New Customer")
+               |> render_click()
+               |> follow_redirect(conn, ~p"/customers/new")
 
-      assert_patch(index_live, ~p"/customers/new")
+      assert render(form_live) =~ "New Customer"
 
-      assert index_live
+      assert form_live
              |> form("#customer-form", customer: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
-      {:ok, _, html} =
-        index_live
-        |> form("#customer-form", customer: @create_attrs)
-        |> render_submit()
-        |> follow_redirect(conn, ~p"/customers")
+      assert {:ok, index_live, _html} =
+               form_live
+               |> form("#customer-form", customer: @create_attrs)
+               |> render_submit()
+               |> follow_redirect(conn, ~p"/customers")
 
+      html = render(index_live)
       assert html =~ "Customer created successfully"
       assert html =~ "some family_name"
     end
@@ -60,22 +65,25 @@ defmodule PcrmWeb.CustomerLiveTest do
       %{conn: conn} = register_and_log_in_user(%{conn: conn})
       {:ok, index_live, _html} = live(conn, ~p"/customers")
 
-      assert index_live
-             |> element("#customer-#{customer.id} a", "Edit")
-             |> render_click() =~ "Edit Customer"
+      assert {:ok, form_live, _html} =
+               index_live
+               |> element("#customers-#{customer.id} a", "Edit")
+               |> render_click()
+               |> follow_redirect(conn, ~p"/customers/#{customer.id}/edit")
 
-      assert_patch(index_live, ~p"/customers/#{customer.id}/edit")
+      assert render(form_live) =~ "Edit Customer"
 
-      assert index_live
+      assert form_live
              |> form("#customer-form", customer: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
-      {:ok, _, html} =
-        index_live
-        |> form("#customer-form", customer: @update_attrs)
-        |> render_submit()
-        |> follow_redirect(conn, ~p"/customers")
+      assert {:ok, index_live, _html} =
+               form_live
+               |> form("#customer-form", customer: @update_attrs)
+               |> render_submit()
+               |> follow_redirect(conn, ~p"/customers")
 
+      html = render(index_live)
       assert html =~ "Customer updated successfully"
       assert html =~ "some updated family_name"
     end
@@ -84,8 +92,11 @@ defmodule PcrmWeb.CustomerLiveTest do
       %{conn: conn} = register_and_log_in_user(%{conn: conn})
       {:ok, index_live, _html} = live(conn, ~p"/customers")
 
-      assert index_live |> element("#customer-#{customer.id} a", "Delete") |> render_click()
-      refute has_element?(index_live, "#customer-#{customer.id}")
+      assert index_live
+             |> element("#customers-#{customer.id} a", "Delete")
+             |> render_click()
+
+      refute has_element?(index_live, "#customers-#{customer.id}")
     end
   end
 
@@ -100,24 +111,29 @@ defmodule PcrmWeb.CustomerLiveTest do
       assert html =~ customer.family_name
     end
 
-    test "updates customer within modal", %{conn: conn, customer: customer} do
+    test "updates customer and returns to show", %{conn: conn, customer: customer} do
       %{conn: conn} = register_and_log_in_user(%{conn: conn})
       {:ok, show_live, _html} = live(conn, ~p"/customers/#{customer.id}")
 
-      assert show_live |> element("a", "Edit") |> render_click() =~ "Edit Customer"
+      assert {:ok, form_live, _} =
+               show_live
+               |> element("a", "Edit")
+               |> render_click()
+               |> follow_redirect(conn, ~p"/customers/#{customer.id}/edit?return_to=show")
 
-      assert_patch(show_live, ~p"/customers/#{customer.id}/show/edit")
+      assert render(form_live) =~ "Edit Customer"
 
-      assert show_live
+      assert form_live
              |> form("#customer-form", customer: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
-      {:ok, _, html} =
-        show_live
-        |> form("#customer-form", customer: @update_attrs)
-        |> render_submit()
-        |> follow_redirect(conn, ~p"/customers/#{customer.id}")
+      assert {:ok, show_live, _html} =
+               form_live
+               |> form("#customer-form", customer: @update_attrs)
+               |> render_submit()
+               |> follow_redirect(conn, ~p"/customers/#{customer.id}")
 
+      html = render(show_live)
       assert html =~ "Customer updated successfully"
       assert html =~ "some updated family_name"
     end

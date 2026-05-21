@@ -1,0 +1,22 @@
+defmodule <%= inspect schema.repo %>.Migrations.Create<%= Macro.camelize(schema.table) %> do
+  use <%= inspect schema.migration_module %>
+
+  def change do
+    execute "CREATE EXTENSION IF NOT EXISTS citext", "DROP EXTENSION IF EXISTS citext"
+
+    create table(:<%= schema.table %>, primary_key: false<%= if schema.prefix do %>, prefix: :<%= schema.prefix %><% end %>) do
+      add :id, :binary_id, primary_key: true
+<%= for {k, v} <- schema.attrs do %><%
+      mig_type = case Mix.Phoenix.Schema.type_for_migration(v) do
+        :string -> :citext
+        t -> t
+      end
+%>      add <%= inspect k %>, <%= inspect mig_type %>, null: false<%= schema.migration_defaults[k] %>
+<% end %><%= for {_, i, _, s} <- schema.assocs do %>      add <%= inspect(i) %>, references(<%= inspect(s) %>, on_delete: :nothing, type: :binary_id)
+<% end %>
+      timestamps(<%= if schema.timestamp_type != :naive_datetime, do: "type: #{inspect schema.timestamp_type}" %>)
+    end
+<%= if Enum.any?(schema.indexes) do %><%= for index <- schema.indexes do %>
+    <%= index %><% end %>
+<% end %>  end
+end
