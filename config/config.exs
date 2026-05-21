@@ -24,7 +24,7 @@ config :esbuild,
   version: "0.28.0",
   default: [
     args:
-      ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/* --loader:.ttf=file --loader:.woff2=file --loader:.woff=file --loader:.eot=file --loader:.svg=file),
+      ~w(js/app.js css/fa.css --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/* --loader:.ttf=file --loader:.woff2=file --loader:.woff=file --loader:.eot=file --loader:.svg=file),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
