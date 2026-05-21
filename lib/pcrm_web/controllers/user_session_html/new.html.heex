@@ -1,0 +1,30 @@
+<.header>
+  {gettext("Log in")}
+</.header>
+
+<%= if @error_message do %>
+  <div class="mt-4 bg-red-50 border border-red-200 text-red-800 rounded-lg p-4 text-sm">
+    {@error_message}
+  </div>
+<% end %>
+
+<.form :let={f} for={%{}} as={:user} action={~p"/users/log_in"} class="mt-6 space-y-4">
+  <.input field={f[:email]} type="email" label={dgettext("users", "Email")} required />
+  <.input field={f[:password]} type="password" label={dgettext("users", "Password")} required />
+  <.input
+    field={f[:remember_me]}
+    type="checkbox"
+    label={dgettext("users", "Keep me logged in for 60 days")}
+  />
+  <.button type="submit">{gettext("Log in")}</.button>
+</.form>
+
+<p class="mt-6 text-sm text-gray-600">
+  <.link href={~p"/users/register"} class="text-blue-600 hover:text-blue-500">
+    {gettext("Register")}
+  </.link>
+  ·
+  <.link href={~p"/users/reset_password"} class="text-blue-600 hover:text-blue-500">
+    {gettext("Forgot your password?")}
+  </.link>
+</p>

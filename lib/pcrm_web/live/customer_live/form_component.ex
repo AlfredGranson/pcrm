@@ -11,7 +11,7 @@ defmodule PcrmWeb.CustomerLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(:changeset, changeset)}
+     |> assign_form(changeset)}
   end
 
   @impl true
@@ -21,7 +21,7 @@ defmodule PcrmWeb.CustomerLive.FormComponent do
       |> Customers.change_customer(customer_params)
       |> Map.put(:action, :validate)
 
-    {:noreply, assign(socket, :changeset, changeset)}
+    {:noreply, assign_form(socket, changeset)}
   end
 
   def handle_event("save", %{"customer" => customer_params}, socket) do
@@ -34,10 +34,10 @@ defmodule PcrmWeb.CustomerLive.FormComponent do
         {:noreply,
          socket
          |> put_flash(:info, "Customer updated successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+         |> push_navigate(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, :changeset, changeset)}
+        {:noreply, assign_form(socket, changeset)}
     end
   end
 
@@ -47,10 +47,14 @@ defmodule PcrmWeb.CustomerLive.FormComponent do
         {:noreply,
          socket
          |> put_flash(:info, "Customer created successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+         |> push_navigate(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, changeset: changeset)}
+        {:noreply, assign_form(socket, changeset)}
     end
+  end
+
+  defp assign_form(socket, %Ecto.Changeset{} = changeset) do
+    assign(socket, :form, to_form(changeset))
   end
 end

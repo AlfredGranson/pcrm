@@ -56,8 +56,7 @@ if config_env() == :prod do
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
-      # See the documentation on https://hexdocs.pm/plug_cowboy/Plug.Cowboy.html
-      # for details about using IPv6 vs IPv4 and loopback vs public addresses.
+      # See https://hexdocs.pm/bandit/Bandit.html for details about IPv6 vs IPv4.
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: port
     ],

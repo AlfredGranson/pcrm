@@ -1,0 +1,80 @@
+<.header>
+  {gettext("Settings")}
+</.header>
+
+<div class="mt-8 space-y-12">
+  <div>
+    <h3 class="text-base font-semibold text-gray-900 mb-4">{dgettext("users", "Email")}</h3>
+
+    <.form
+      :let={f}
+      for={@email_changeset}
+      action={~p"/users/settings"}
+      id="update_email"
+      class="space-y-4"
+    >
+      <%= if @email_changeset.action do %>
+        <div class="bg-red-50 border border-red-200 text-red-800 rounded-lg p-4 text-sm">
+          {gettext("Oops, something went wrong! Please check the errors below.")}
+        </div>
+      <% end %>
+
+      <input type="hidden" name="action" value="update_email" />
+
+      <.input field={f[:email]} type="email" label={dgettext("users", "Email")} required />
+      <.input
+        field={f[:current_password]}
+        id="current_password_for_email"
+        type="password"
+        label={dgettext("users", "Current Password")}
+        required
+      />
+
+      <.button type="submit">{dgettext("users", "Change email")}</.button>
+    </.form>
+  </div>
+
+  <div>
+    <h3 class="text-base font-semibold text-gray-900 mb-4">
+      {dgettext("users", "Change password")}
+    </h3>
+
+    <.form
+      :let={f}
+      for={@password_changeset}
+      action={~p"/users/settings"}
+      id="update_password"
+      class="space-y-4"
+    >
+      <%= if @password_changeset.action do %>
+        <div class="bg-red-50 border border-red-200 text-red-800 rounded-lg p-4 text-sm">
+          {gettext("Oops, something went wrong! Please check the errors below.")}
+        </div>
+      <% end %>
+
+      <input type="hidden" name="action" value="update_password" />
+
+      <.input
+        field={f[:password]}
+        type="password"
+        label={dgettext("users", "New password")}
+        required
+      />
+      <.input
+        field={f[:password_confirmation]}
+        type="password"
+        label={dgettext("users", "Confirm new password")}
+        required
+      />
+      <.input
+        field={f[:current_password]}
+        id="current_password_for_password"
+        type="password"
+        label={dgettext("users", "Current Password")}
+        required
+      />
+
+      <.button type="submit">{dgettext("users", "Change password")}</.button>
+    </.form>
+  </div>
+</div>

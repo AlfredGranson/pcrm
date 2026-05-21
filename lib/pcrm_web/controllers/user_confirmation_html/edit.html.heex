@@ -1,0 +1,17 @@
+<.header>
+  {dgettext("users", "Confirm account")}
+</.header>
+
+<.form :let={_f} for={%{}} as={:user} action={~p"/users/confirm/#{@token}"} class="mt-6">
+  <.button type="submit">{dgettext("users", "Confirm my account")}</.button>
+</.form>
+
+<p class="mt-6 text-sm text-gray-600">
+  <.link href={~p"/users/register"} class="text-blue-600 hover:text-blue-500">
+    {gettext("Register")}
+  </.link>
+  ·
+  <.link href={~p"/users/log_in"} class="text-blue-600 hover:text-blue-500">
+    {gettext("Log in")}
+  </.link>
+</p>

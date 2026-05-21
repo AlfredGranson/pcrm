@@ -1,30 +1,20 @@
 defmodule PcrmWeb.UserAuth do
   import Plug.Conn
   import Phoenix.Controller
-  import PcrmWeb.Gettext
-  
-  alias Pcrm.Users
-  alias PcrmWeb.Router.Helpers, as: Routes
 
-  # Make the remember me cookie valid for 60 days.
-  # If you want bump or reduce this value, also change
-  # the token expiry itself in UserToken.
+  alias Pcrm.Users
+
+  use Gettext, backend: PcrmWeb.Gettext
+
+  use Phoenix.VerifiedRoutes,
+    endpoint: PcrmWeb.Endpoint,
+    router: PcrmWeb.Router,
+    statics: PcrmWeb.static_paths()
+
   @max_age 60 * 60 * 24 * 60
   @remember_me_cookie "_pcrm_web_user_remember_me"
   @remember_me_options [sign: true, max_age: @max_age, same_site: "Lax"]
 
-  @doc """
-  Logs the user in.
-
-  It renews the session ID and clears the whole session
-  to avoid fixation attacks. See the renew_session
-  function to customize this behaviour.
-
-  It also sets a `:live_socket_id` key in the session,
-  so LiveView sessions are identified and automatically
-  disconnected on log out. The line can be safely removed
-  if you are not using LiveView.
-  """
   def log_in_user(conn, user, params \\ %{}) do
     token = Users.generate_user_session_token(user)
     user_return_to = get_session(conn, :user_return_to)
@@ -45,32 +35,12 @@ defmodule PcrmWeb.UserAuth do
     conn
   end
 
-  # This function renews the session ID and erases the whole
-  # session to avoid fixation attacks. If there is any data
-  # in the session you may want to preserve after log in/log out,
-  # you must explicitly fetch the session data before clearing
-  # and then immediately set it after clearing, for example:
-  #
-  #     defp renew_session(conn) do
-  #       preferred_locale = get_session(conn, :preferred_locale)
-  #
-  #       conn
-  #       |> configure_session(renew: true)
-  #       |> clear_session()
-  #       |> put_session(:preferred_locale, preferred_locale)
-  #     end
-  #
   defp renew_session(conn) do
     conn
     |> configure_session(renew: true)
     |> clear_session()
   end
 
-  @doc """
-  Logs the user out.
-
-  It clears all session data for safety. See renew_session.
-  """
   def log_out_user(conn) do
     user_token = get_session(conn, :user_token)
     user_token && Users.delete_session_token(user_token)
@@ -85,10 +55,33 @@ defmodule PcrmWeb.UserAuth do
     |> redirect(to: "/")
   end
 
-  @doc """
-  Authenticates the user by looking into the session
-  and remember me token.
-  """
+  def on_mount(:fetch_current_user, _params, session, socket) do
+    {:cont, mount_current_user(session, socket)}
+  end
+
+  def on_mount(:require_authenticated_user, _params, session, socket) do
+    socket = mount_current_user(session, socket)
+
+    if socket.assigns.current_user do
+      {:cont, socket}
+    else
+      socket =
+        socket
+        |> Phoenix.LiveView.put_flash(:error, gettext("You must log in to access this page."))
+        |> Phoenix.LiveView.redirect(to: ~p"/users/log_in")
+
+      {:halt, socket}
+    end
+  end
+
+  defp mount_current_user(session, socket) do
+    Phoenix.Component.assign_new(socket, :current_user, fn ->
+      if user_token = session["user_token"] do
+        Users.get_user_by_session_token(user_token)
+      end
+    end)
+  end
+
   def fetch_current_user(conn, _opts) do
     {user_token, conn} = ensure_user_token(conn)
     user = user_token && Users.get_user_by_session_token(user_token)
@@ -109,9 +102,6 @@ defmodule PcrmWeb.UserAuth do
     end
   end
 
-  @doc """
-  Used for routes that require the user to not be authenticated.
-  """
   def redirect_if_user_is_authenticated(conn, _opts) do
     if conn.assigns[:current_user] do
       conn
@@ -122,20 +112,14 @@ defmodule PcrmWeb.UserAuth do
     end
   end
 
-  @doc """
-  Used for routes that require the user to be authenticated.
-
-  If you want to enforce the user email is confirmed before
-  they use the application at all, here would be a good place.
-  """
   def require_authenticated_user(conn, _opts) do
     if conn.assigns[:current_user] do
       conn
     else
       conn
-      |> put_flash(:error, gettext "You must log in to access this page.")
+      |> put_flash(:error, gettext("You must log in to access this page."))
       |> maybe_store_return_to()
-      |> redirect(to: Routes.user_session_path(conn, :new))
+      |> redirect(to: ~p"/users/log_in")
       |> halt()
     end
   end
@@ -146,5 +130,5 @@ defmodule PcrmWeb.UserAuth do
 
   defp maybe_store_return_to(conn), do: conn
 
-  defp signed_in_path(_conn), do: "/"
+  defp signed_in_path(_conn), do: ~p"/"
 end

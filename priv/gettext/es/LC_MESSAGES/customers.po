@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Language: es\n"
-"Plural-Forms: nplurals=2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/pcrm_web/live/customer_live/form_component.html.heex:21
 #: lib/pcrm_web/live/customer_live/index.html.heex:21

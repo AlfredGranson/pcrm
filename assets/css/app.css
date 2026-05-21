@@ -1,39 +1,23 @@
-/* This file is for your main application CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Non-Tachyons helpers */
-.cu-default { cursor: default }
-.cu-pointer { cursor: pointer }
-.rows-pcrm-template { grid-template-rows: [header] auto [body] 1fr [footer] auto }
-.empty-hide:empty{ display: none; }
-
-/* LiveView specific classes */
+/* LiveView-specific states */
 .phx-no-feedback.invalid-feedback,
 .phx-no-feedback .invalid-feedback {
   display: none;
 }
+
 .phx-click-loading {
   opacity: 0.5;
   transition: opacity 1s ease-out;
 }
 
-.phx-loading{
+.phx-loading {
   cursor: wait;
 }
 
-.phx-modal-close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.phx-modal-close:hover,
-.phx-modal-close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
+/* Modal animations used by CoreComponents */
 .fade-in-scale {
   animation: 0.2s ease-in 0s normal forwards 1 fade-in-scale-keys;
 }
@@ -45,26 +29,27 @@
 .fade-in {
   animation: 0.2s ease-out 0s normal forwards 1 fade-in-keys;
 }
+
 .fade-out {
   animation: 0.2s ease-out 0s normal forwards 1 fade-out-keys;
 }
 
-@keyframes fade-in-scale-keys{
+@keyframes fade-in-scale-keys {
   0% { scale: 0.95; opacity: 0; }
   100% { scale: 1.0; opacity: 1; }
 }
 
-@keyframes fade-out-scale-keys{
+@keyframes fade-out-scale-keys {
   0% { scale: 1.0; opacity: 1; }
   100% { scale: 0.95; opacity: 0; }
 }
 
-@keyframes fade-in-keys{
+@keyframes fade-in-keys {
   0% { opacity: 0; }
   100% { opacity: 1; }
 }
 
-@keyframes fade-out-keys{
+@keyframes fade-out-keys {
   0% { opacity: 1; }
   100% { opacity: 0; }
 }
