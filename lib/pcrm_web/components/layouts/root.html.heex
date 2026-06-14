@@ -5,14 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content={get_csrf_token()} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
     <.live_title suffix=" · pcrm">
       {assigns[:page_title] || "pcrm"}
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <link phx-track-static rel="stylesheet" href={~p"/assets/fa.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class="font-sans min-h-screen grid grid-rows-[auto_1fr_auto] bg-white antialiased">
+  <body class="font-sans min-h-screen grid grid-rows-[auto_1fr_auto] bg-canvas antialiased">
     {@inner_content}
   </body>
 </html>

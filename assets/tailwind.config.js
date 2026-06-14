@@ -7,7 +7,15 @@ module.exports = {
     "../lib/pcrm_web/**/*.*ex",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        canvas: "#f8f3ec",
+        brand: "#d9542b",
+      },
+      fontFamily: {
+        sans: ["Work Sans", "ui-sans-serif", "system-ui", "sans-serif"],
+      },
+    },
   },
   plugins: [
     require("@tailwindcss/forms"),
