@@ -11,45 +11,63 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/pcrm_web/live/customer_live/form_component.html.heex:21
-#: lib/pcrm_web/live/customer_live/index.html.heex:21
-#: lib/pcrm_web/live/customer_live/show.html.heex:29
+#: lib/pcrm_web/live/customer_live/form.ex:18
+#: lib/pcrm_web/live/customer_live/index.ex:25
+#: lib/pcrm_web/live/customer_live/show.ex:24
 #, elixir-autogen, elixir-format
 msgid "Family name"
 msgstr "Last Name"
 
-#: lib/pcrm_web/live/customer_live/form_component.html.heex:17
-#: lib/pcrm_web/live/customer_live/index.html.heex:20
-#: lib/pcrm_web/live/customer_live/show.html.heex:24
+#: lib/pcrm_web/live/customer_live/form.ex:17
+#: lib/pcrm_web/live/customer_live/index.ex:24
+#: lib/pcrm_web/live/customer_live/show.ex:23
 #, elixir-autogen, elixir-format
 msgid "Given name"
 msgstr "First Name"
 
-#: lib/pcrm_web/live/customer_live/index.html.heex:1
+#: lib/pcrm_web/live/customer_live/index.ex:10
+#: lib/pcrm_web/live/customer_live/index.ex:52
 #, elixir-autogen, elixir-format
 msgid "Listing Customers"
 msgstr ""
 
-#: lib/pcrm_web/live/customer_live/index.html.heex:45
+#: lib/pcrm_web/live/customer_live/form.ex:59
+#: lib/pcrm_web/live/customer_live/index.ex:13
 #, elixir-autogen, elixir-format
 msgid "New Customer"
 msgstr ""
 
-#: lib/pcrm_web/live/customer_live/show.html.heex:1
+#: lib/pcrm_web/live/customer_live/show.ex:10
+#: lib/pcrm_web/live/customer_live/show.ex:34
 #, elixir-autogen, elixir-format
 msgid "Show Customer"
 msgstr ""
 
-#: lib/pcrm_web/live/customer_live/form_component.html.heex:13
-#: lib/pcrm_web/live/customer_live/index.html.heex:19
-#: lib/pcrm_web/live/customer_live/show.html.heex:19
+#: lib/pcrm_web/live/customer_live/form.ex:16
+#: lib/pcrm_web/live/customer_live/index.ex:23
+#: lib/pcrm_web/live/customer_live/show.ex:22
 #, elixir-autogen, elixir-format
 msgid "Honorific Prefix"
 msgstr "Title"
 
-#: lib/pcrm_web/live/customer_live/form_component.html.heex:25
-#: lib/pcrm_web/live/customer_live/index.html.heex:22
-#: lib/pcrm_web/live/customer_live/show.html.heex:34
+#: lib/pcrm_web/live/customer_live/form.ex:19
+#: lib/pcrm_web/live/customer_live/index.ex:26
+#: lib/pcrm_web/live/customer_live/show.ex:25
 #, elixir-autogen, elixir-format
 msgid "Honorific Suffix"
 msgstr "Suffix"
+
+#: lib/pcrm_web/live/customer_live/form.ex:92
+#, elixir-autogen, elixir-format
+msgid "Customer created successfully"
+msgstr ""
+
+#: lib/pcrm_web/live/customer_live/form.ex:79
+#, elixir-autogen, elixir-format
+msgid "Customer updated successfully"
+msgstr ""
+
+#: lib/pcrm_web/live/customer_live/form.ex:50
+#, elixir-autogen, elixir-format
+msgid "Edit Customer"
+msgstr ""
